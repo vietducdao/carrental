@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Jost:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: var(--Roboto-font);
+}
+:root {
+  --prim-color: #f5b754;
+  --section-dark-bg: #1b1b1b;
+  --section-light-bg: #222222;
+  --text-light: #999;
+  --white-color: #fff;
+  --black-color: #000;
+
+  --Bricolage-font: "Bricolage Grotesque", sans-serif;
+  --Jost-font: "Jost", sans-serif;
+  --Roboto-font: "Roboto", sans-serif;
+
+  --transition-regular: 0.3s;
+  --transition-slow: 0.6s;
+}
+
+html,
+body {
+  background-color: var(--section-dark-bg);
+}
+.logo {
+  @apply font-bricolage;
+}
+.logo span {
+  @apply font-bricolage;
+}
+.menu {
+  transition: var(--transition-regular) !important;
+}
+.menu li a {
+  position: relative;
+  padding: 0px 10px;
+  z-index: 1;
+  display: inline-block;
+}
+.menu li a::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 3px;
+  border-radius: 50px;
+  background-color: var(--prim-color);
+  transition: width 0.3s ease-in-out;
+  transition-delay: 0.2s;
+  z-index: -1;
+}
+.menu li a::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  z-index: -1;
+  background-color: var(--prim-color);
+  transition: height 0.3s ease-in-out;
+}
+.menu li:hover a::after {
+  width: 100%;
+  transition-delay: 0s;
+}
+.menu li:hover a::before {
+  height: 100%;
+  transition-delay: 0.3s;
+}
+.menu li a::after {
+  transition-delay: 0.3s;
+}
+.menu li a::before {
+  transition-delay: 0s;
+}
+.menu li a.active::after {
+  width: 100%;
+  transition-delay: 0s;
+}
+.menu li a.active::before {
+  height: 100%;
+  transition-delay: 0.3s;
+}
+
+/* Hero Slide */
+.hero-slide {
+  position: relative;
+  z-index: 5;
+}
+.hero-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(assets/hero-slide-1.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  z-index: -1;
+  animation: Anim-zoom 2.5s 1.4s forwards linear;
+}
+.hero-slide2::before {
+  background-image: url(assets/hero-slide-2.jpg);
+}
+.hero-slide3::before {
+  background-image: url(assets/hero-slide-3.jpg);
+}
+.hero-slide::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+.hero-content {
+  z-index: 5;
+}
+
+@keyframes Anim-zoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+/* Date Picker */
+.dark-datepicker {
+  background-color: var(--section-dark-bg);
+  color: var(--white-color);
+  border: 1px solid var(--prim-color);
+}
+.dark-datepicker .react-datepicker__day--selected,
+.dark-datepicker .react-datepicker__day--keyboard--selected {
+  background-color: var(--prim-color);
+  color: var(--black-color);
+}
+.dark-datepicker .react-datepicker__header {
+  background-color: var(--section-dark-bg);
+  border-bottom: 1px solid var(--prim-color);
+}
+.dark-datepicker .react-datepicker__current-month,
+.dark-datepicker .react-datepicker__day-name {
+  color: var(--prim-color);
+}
+@media screen and (max-width: 1339px) {
+}
+@media screen and (max-width: 1199px) {
+}
+@media screen and (max-width: 911px) {
+  nav {
+    padding: o !important;
+  }
+  .navbar {
+    padding: 20px 12%;
+  }
+  .book-option {
+    bottom: -15% !important;
+  }
+}
+@media screen and (max-width: 767px) {
+}
+@media screen and (max-width: 575px) {
+  .book-option {
+    bottom: -40% !important;
+    z-index: 999;
+  }
+  .hero-pere {
+    width: 100%;
+  }
+  .hero-title {
+    font-size: 6rem;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+}
