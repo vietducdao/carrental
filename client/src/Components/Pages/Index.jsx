@@ -277,6 +277,54 @@ function Index() {
         </div>
       </div>
       {/* About */}
+      <div className="about text-white lg:px-[10%] px-[8%] py-[150px]">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="uppercase test-sm tracking-widest text-[#f5b754] mb-2">
+              Car Rental
+            </p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-3 font-bricolage ">
+              We Are More Than <br />
+              <span className="text-[#f5b754] text-bricolage">
+                A Car Rental Company
+              </span>
+            </h2>
+            <p className="text-gray-400 leading-realaxed my-6">
+              Free cancellation or changes for most rental bookings, up to 48
+              hours before pickup.
+            </p>
+            <div className="space-y-4 mb-10">
+              <div className="flex items-cemter gap-4">
+                <div className="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-[#f5b754] ">
+                  <i className="ri-check-double-line"></i>
+                </div>
+                <span className="text-white">Sports anf Luxury Cars</span>
+              </div>
+
+              <div className="flex items-cemter gap-4">
+                <div className="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-[#f5b754] ">
+                  <i className="ri-check-double-line"></i>
+                </div>
+                <span className="text-white">Economies Cars</span>
+              </div>
+            </div>
+
+            <button className="bg-[#f5b754] text-black px-8 py-4 rounded-full font-medium flex items-center gap-2 hover:bg-white transition">
+              Read More <i className="ri-arrow-right-line"></i>
+            </button>
+          </div>
+          <div className="relative">
+            <img src={about} alt="" className="rounded-3xl" />
+            <div className="curv">
+              <div className="about-item-curv section-item-curv">
+                <i className="ri-play-line text-xl"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Banner */}
+      <div className="banner text-white lg:px-[10%] px-[8%] py-[150px] "></div>
     </>
   );
 }
