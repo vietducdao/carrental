@@ -6,7 +6,7 @@
     "door": "4",
     "passengers": "5",
     "transmission": "auto",
-    "Bages": "2 Bages",
+    "Bags": "2 Bags",
     "price": "750"
   },
 
@@ -17,7 +17,7 @@
     "door": "4",
     "passengers": "5",
     "transmission": "auto",
-    "Bages": "2 Bages",
+    "Bags": "2 Bags",
     "price": "700"
   },
 
@@ -28,7 +28,7 @@
     "door": "4",
     "passengers": "5",
     "transmission": "auto",
-    "Bages": "2 Bages",
+    "Bags": "2 Bags",
     "price": "850"
   },
 
@@ -39,18 +39,18 @@
     "door": "4",
     "passengers": "5",
     "transmission": "auto",
-    "Bages": "2 Bages",
+    "Bags": "2 Bags",
     "price": "600"
   },
 
   {
     "id": "5",
-    "name": "Rolls Royce Cullian",
+    "name": "Rolls Royce Cullinan",
     "image": "/images/cars-slide-05.jpg",
     "door": "4",
     "passengers": "5",
     "transmission": "auto",
-    "Bages": "2 Bages",
+    "Bags": "2 Bags",
     "price": "650"
   },
 
@@ -61,7 +61,7 @@
     "door": "4",
     "passengers": "5",
     "transmission": "auto",
-    "Bages": "2 Bages",
+    "Bags": "2 Bags",
     "price": "500"
   }
 ]
