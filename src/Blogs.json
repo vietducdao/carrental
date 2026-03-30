@@ -1,0 +1,82 @@
+[
+  {
+    "id": "1",
+    "name": "Documents Required Car Rental",
+    "image": "/images/blog-slide-01.jpg",
+    "date": "April 1, 2025",
+    "author": "Viet Duc",
+    "category": "Cars"
+  },
+
+  {
+    "id": "2",
+    "name": "Rental Cost Of Sports and other cars",
+    "image": "/images/blog-slide-02.jpg",
+    "date": "May 25, 2025",
+    "author": "Viet Duc",
+    "category": "Vehicles"
+  },
+
+  {
+    "id": "3",
+    "name": "Rental Cars How To Check Driving Fines?",
+    "image": "/images/blog-slide-03.jpg",
+    "date": "June 03, 2025",
+    "author": "Viet Duc",
+    "category": "Rent A Car"
+  },
+
+  {
+    "id": "4",
+    "name": "How To Rent A Cars At The Airport Terminal?",
+    "image": "/images/blog-slide-04.jpg",
+    "date": "July 08, 2025",
+    "author": "Viet Duc",
+    "category": "Rental Service"
+  },
+
+  {
+    "id": "5",
+    "name": "New Rules In Rental Cars",
+    "image": "/images/blog-slide-05.jpg",
+    "date": "July 11, 2025",
+    "author": "Viet Duc",
+    "category": "Rules"
+  },
+
+  {
+    "id": "6",
+    "name": "Luxury Cars You Can Rent Today",
+    "image": "/images/blog-slide-06.jpg",
+    "date": "August 23, 2025",
+    "author": "Viet Duc",
+    "category": "Luxury"
+  },
+
+  {
+    "id": "7",
+    "name": "Driving Tips While Using Rental Cars",
+    "image": "/images/blog-slide-07.jpg",
+    "date": "Octobor 07, 2025",
+    "author": "Viet Duc",
+    "category": "Driving Tips"
+  },
+
+  {
+    "id": "8",
+    "name": "Is Insurance Required For Car Rental?",
+    "image": "/images/blog-slide-08.jpg",
+    "date": "November 05, 2025",
+    "author": "Viet Duc",
+    "category": "Insurance"
+  },
+
+  {
+    "id": "9",
+    "name": "Top 5 Sports Cars For Rent In 2025 ",
+    "image": "/images/blog-slide-09.jpg",
+    "date": "December 22, 2025",
+    "author": "Viet Duc",
+    "category": "Sport Cars"
+  }
+]
