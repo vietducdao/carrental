@@ -17,20 +17,21 @@ function Footer() {
       <div className="footer-banner text-white lg:px-[12%] px-[8%] py-[150px]">
         <div className="footer-banner-content text-center text-white relative">
           <p className="uppercase text-sm tracking-[5px] text-[#f5b754] mb-2 ">
-            Rent Your Car
+            Thuê Xe Nhanh
           </p>
           <h2 className="text-4xl md:text-5xl font-bold mb-3 text-white font-bricolage">
-            Interested in Renting?
+            Mà Không Cần Đặt Trước?
           </h2>
-          <p className="py-3 ">Don't hesitate and send us a message</p>
+          <p className="py-3 ">Đừng Ngần Ngại Mà Hãy Nhắn Tin Cho Chúng Tôi</p>
           <div className="footer-banner-button mt-5 text-black flex flex-col sm:flex-row gap-3">
             <button className="btn btn-custom bg-[#f5b754] border border-white py-4 px-14 text-lg font-bricolage rounded-full flex items-center hover:translate-y-[-10px] hover:bg-white transition duration-300">
-              Whatsapp
-              <i className="fa-brands fa-whatsapp pr-2 text-2xl "></i>
+              Messenger
+              {""}
+              <i className="fa-brands fa-facebook-messenger pr-2 text-2xl "></i>
             </button>
 
             <button className="btn btn-custom bg-transparent border border-white py-4 px-14 text-xl font-bricolage rounded-full text-white flex items-center hover:translate-y-[-10px] hover:bg-[#f5b754] hover:text-black transition duration-300">
-              Rent Now
+              Zalo
               <i className="ri-arrow-right-up-line text-2xl pl-2"></i>
             </button>
           </div>
@@ -132,7 +133,7 @@ function Footer() {
               <i className="ri-phone-line text-2xl"></i>
             </div>
             <div>
-              <h5 className="font-semibold font-bricolage">Call us</h5>
+              <h5 className="font-semibold font-bricolage">Gọi cho tôi tạis</h5>
               <p>+84 786 783 493</p>
             </div>
           </div>
@@ -142,7 +143,9 @@ function Footer() {
               <i className="ri-mail-line text-2xl"></i>
             </div>
             <div>
-              <h5 className="font-semibold font-bricolage">Write to us</h5>
+              <h5 className="font-semibold font-bricolage">
+                Phản hổi cho chúng tôi
+              </h5>
               <p>vietd4220@gmail.com</p>
             </div>
           </div>
@@ -152,8 +155,8 @@ function Footer() {
               <i className="ri-map-pin-line text-2xl"></i>
             </div>
             <div>
-              <h5 className="font-semibold font-bricolage">Address</h5>
-              <p>25b, 61 Alley, Yen Hoa, Hanoi</p>
+              <h5 className="font-semibold font-bricolage">Địa Chỉ Đặt Xe</h5>
+              <p>25b, Ngõ 61, Yên Hoà, Hanoi</p>
             </div>
           </div>
         </div>
@@ -166,8 +169,7 @@ function Footer() {
                 </a>
               </h1>
               <p className="text-[#999] mb-6 md:w-[90%] w-full">
-                Experience the ease and convenience of renting a car with
-                Novaride.
+                Trải nghiệm sự dễ dàng và tiện lợi khi thuê xe với Carshops.
               </p>
               <div className="flex gap-4">
                 <a
@@ -192,7 +194,7 @@ function Footer() {
             </div>
             <div className="flex-1">
               <h4 className="text-2xl font-semibold font-bricolage mb-4 ">
-                Quick Links
+                Truy cập nhanh
               </h4>
               <ul className="space-y-2 text-[#999] footer-menu relative">
                 <li>
@@ -242,7 +244,7 @@ function Footer() {
                 Subscribe
               </h4>
               <p className="text-[#999] mb-4 text-sm ">
-                Follow us to receive the latest offers.
+                Hãy theo dõi chúng tôi để nhận được những ưu đãi mới nhất.
               </p>
               <div className="flex items-center border border-[#f5b754] rounded-full px-4 py-2">
                 <input
@@ -259,8 +261,8 @@ function Footer() {
         </div>
         <div className="text-[#999] text-center text-base relative py-6 ">
           <p className="font-bricolage">
-            © 2026 <span className="text-white">Carshops.</span> All rights
-            reserved.
+            © 2026 <span className="text-white">Carshops.</span> Mọi quyền được
+            bảo lưu.
           </p>
         </div>
       </footer>

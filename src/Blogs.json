@@ -1,82 +1,74 @@
 [
   {
     "id": "1",
-    "name": "Documents Required Car Rental",
+    "name": "Các giấy tờ cần thiết khi thuê xe",
     "image": "/images/blog-slide-01.jpg",
-    "date": "April 1, 2025",
-    "author": "Viet Duc",
-    "category": "Cars"
+    "date": "01/04/2025",
+    "author": "Viết Đức",
+    "category": "Xe"
   },
-
   {
     "id": "2",
-    "name": "Rental Cost Of Sports and other cars",
+    "name": "Chi phí thuê xe thể thao và các loại xe khác",
     "image": "/images/blog-slide-02.jpg",
-    "date": "May 25, 2025",
-    "author": "Viet Duc",
-    "category": "Vehicles"
+    "date": "25/05/2025",
+    "author": "Viết Đức",
+    "category": "Phương tiện"
   },
-
   {
     "id": "3",
-    "name": "Rental Cars How To Check Driving Fines?",
+    "name": "Cách kiểm tra lỗi vi phạm giao thông khi thuê xe",
     "image": "/images/blog-slide-03.jpg",
-    "date": "June 03, 2025",
-    "author": "Viet Duc",
-    "category": "Rent A Car"
+    "date": "03/06/2025",
+    "author": "Viết Đức",
+    "category": "Thuê xe"
   },
-
   {
     "id": "4",
-    "name": "How To Rent A Cars At The Airport Terminal?",
+    "name": "Hướng dẫn thuê xe tại sân bay",
     "image": "/images/blog-slide-04.jpg",
-    "date": "July 08, 2025",
-    "author": "Viet Duc",
-    "category": "Rental Service"
+    "date": "08/07/2025",
+    "author": "Viết Đức",
+    "category": "Dịch vụ thuê xe"
   },
-
   {
     "id": "5",
-    "name": "New Rules In Rental Cars",
+    "name": "Những quy định mới khi thuê xe",
     "image": "/images/blog-slide-05.jpg",
-    "date": "July 11, 2025",
-    "author": "Viet Duc",
-    "category": "Rules"
+    "date": "11/07/2025",
+    "author": "Viết Đức",
+    "category": "Quy định"
   },
-
   {
     "id": "6",
-    "name": "Luxury Cars You Can Rent Today",
+    "name": "Các dòng xe cao cấp bạn có thể thuê ngay hôm nay",
     "image": "/images/blog-slide-06.jpg",
-    "date": "August 23, 2025",
-    "author": "Viet Duc",
-    "category": "Luxury"
+    "date": "23/08/2025",
+    "author": "Viết Đức",
+    "category": "Xe cao cấp"
   },
-
   {
     "id": "7",
-    "name": "Driving Tips While Using Rental Cars",
+    "name": "Kinh nghiệm lái xe khi sử dụng xe thuê",
     "image": "/images/blog-slide-07.jpg",
-    "date": "Octobor 07, 2025",
-    "author": "Viet Duc",
-    "category": "Driving Tips"
+    "date": "07/10/2025",
+    "author": "Viết Đức",
+    "category": "Kinh nghiệm lái xe"
   },
-
   {
     "id": "8",
-    "name": "Is Insurance Required For Car Rental?",
+    "name": "Có cần mua bảo hiểm khi thuê xe không?",
     "image": "/images/blog-slide-08.jpg",
-    "date": "November 05, 2025",
-    "author": "Viet Duc",
-    "category": "Insurance"
+    "date": "05/11/2025",
+    "author": "Viết Đức",
+    "category": "Bảo hiểm"
   },
-
   {
     "id": "9",
-    "name": "Top 5 Sports Cars For Rent In 2025 ",
+    "name": "Top 5 xe thể thao đáng thuê nhất năm 2025",
     "image": "/images/blog-slide-09.jpg",
-    "date": "December 22, 2025",
-    "author": "Viet Duc",
-    "category": "Sport Cars"
+    "date": "22/12/2025",
+    "author": "Viết Đức",
+    "category": "Xe thể thao"
   }
 ]

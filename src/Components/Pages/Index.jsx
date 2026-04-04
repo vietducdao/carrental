@@ -65,23 +65,23 @@ function Index() {
                   Premium
                 </span>
                 <h1 className="font-bricolage text-9xl hero-title my-3">
-                  Rental car
+                  THUÊ XE
                 </h1>
                 <p className="my-2 text-2xl font-bricolage hero-subtitle text-gray-300">
-                  You can Rent any og our Luxurious Car.
+                  THUÊ XE TRỰC TUYẾN NGAY VỚI MỨC GIÁ TỐT NHẤT
                 </p>
                 <p className="my-7 w-[60%] hero-pere text-gray-300">
-                  Experience premium car rentals with comfort, style,and
-                  affordability-perfect for road trips, business travel, or
-                  luxury weekend gateaways.
+                  Trải nghiệm dịch vụ cho thuê xe cao cấp với sự thoải mái,
+                  phong cách và giá cả phải chăng - hoàn hảo cho những chuyến đi
+                  đường dài, công tác hoặc những kỳ nghỉ cuối tuần sang trọng.
                 </p>
                 <div className="hero-btns flex gap-4 mt-8 ">
                   <button className="default-btn bg-[#f5b754] transition-all hover:bg-white hover:text-black px-7 py-5 font-bricolage rounded-full transform hover:-translate-y-1">
-                    View more &nbsp;
+                    Xem Ngay &nbsp;
                     <i className="bi bi-arrow-up-right"></i>
                   </button>
                   <button className="default-btn border px-7 py-5 font-bricolage rounded-full transition-all hover:bg-[#f5b754] hover:border-transparent hover:translate-y-1">
-                    Rent Now
+                    Đăng ký tại đây
                     <i className="bi bi-arrow-up-right"></i>
                   </button>
                 </div>
@@ -96,23 +96,23 @@ function Index() {
                   Premium
                 </span>
                 <h1 className="font-bricolage text-9xl hero-title my-3">
-                  Rental car
+                  Thuê xe
                 </h1>
                 <p className="my-2 text-2xl font-bricolage hero-subtitle text-gray-300">
-                  You can Rent any og our Luxurious Car.
+                  THUÊ XE TRỰC TUYẾN NGAY VỚI MỨC GIÁ TỐT NHẤT
                 </p>
                 <p className="my-7 w-[60%] hero-pere text-gray-300">
-                  Experience premium car rentals with comfort, style,and
-                  affordability-perfect for road trips, business travel, or
-                  luxury weekend gateaways.
+                  Trải nghiệm dịch vụ cho thuê xe cao cấp với sự thoải mái,
+                  phong cách và giá cả phải chăng - hoàn hảo cho những chuyến đi
+                  đường dài, công tác hoặc những kỳ nghỉ cuối tuần sang trọng.
                 </p>
                 <div className="hero-btns flex gap-4 mt-8 ">
                   <button className="default-btn bg-[#f5b754] transition-all hover:bg-white hover:text-black px-7 py-5 font-bricolage rounded-full transform hover:-translate-y-1">
-                    View more &nbsp;
+                    Xem Ngay &nbsp;
                     <i className="bi bi-arrow-up-right"></i>
                   </button>
                   <button className="default-btn border px-7 py-5 font-bricolage rounded-full transition-all hover:bg-[#f5b754] hover:border-transparent hover:translate-y-1">
-                    Rent Now
+                    Đăng ký tại đây
                     <i className="bi bi-arrow-up-right"></i>
                   </button>
                 </div>
@@ -121,29 +121,29 @@ function Index() {
           </SwiperSlide>
           {/* slide 3 */}
           <SwiperSlide>
-            <div className="hero-slide hero-slide2 hero-slide3 w-full h-full flex items-center px-[12%]">
+            <div className="hero-slide hero-slide2 w-full h-full flex items-center px-[12%]">
               <div className="hero-content text-white ">
                 <span className="font-bricolage text-1xl uppercase tracking-widest">
                   Premium
                 </span>
                 <h1 className="font-bricolage text-9xl hero-title my-3">
-                  Rental car
+                  Thuê xe
                 </h1>
                 <p className="my-2 text-2xl font-bricolage hero-subtitle text-gray-300">
-                  You can Rent any og our Luxurious Car.
+                  THUÊ XE TRỰC TUYẾN NGAY VỚI MỨC GIÁ TỐT NHẤT
                 </p>
                 <p className="my-7 w-[60%] hero-pere text-gray-300">
-                  Experience premium car rentals with comfort, style,and
-                  affordability-perfect for road trips, business travel, or
-                  luxury weekend gateaways.
+                  Trải nghiệm dịch vụ cho thuê xe cao cấp với sự thoải mái,
+                  phong cách và giá cả phải chăng - hoàn hảo cho những chuyến đi
+                  đường dài, công tác hoặc những kỳ nghỉ cuối tuần sang trọng.
                 </p>
                 <div className="hero-btns flex gap-4 mt-8 ">
                   <button className="default-btn bg-[#f5b754] transition-all hover:bg-white hover:text-black px-7 py-5 font-bricolage rounded-full transform hover:-translate-y-1">
-                    View more &nbsp;
+                    Xem Ngay &nbsp;
                     <i className="bi bi-arrow-up-right"></i>
                   </button>
                   <button className="default-btn border px-7 py-5 font-bricolage rounded-full transition-all hover:bg-[#f5b754] hover:border-transparent hover:translate-y-1">
-                    Rent Now
+                    Đăng ký tại đây
                     <i className="bi bi-arrow-up-right"></i>
                   </button>
                 </div>
@@ -159,7 +159,7 @@ function Index() {
           {/* Cars Type */}
           <div className="relative w-full lg:w-auto px-4 py-3 group border-gray-600">
             <button className="flex items-center gap-2 w-full justify-between text-gray-400">
-              Choose Car Type
+              Chọn loại xe khứ hồi
               <i className="ri-arrow-down-s-line text-yellow-500"></i>
             </button>
             <div
@@ -168,16 +168,16 @@ function Index() {
             >
               <ul className="divide-y divide-gray-700">
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  A
+                  SUVs
                 </li>
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  B
+                  Xe Mui Trần
                 </li>
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  C
+                  Xe Thể Thao
                 </li>
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  D
+                  Xe Cỡ Nhỏ
                 </li>
               </ul>
             </div>
@@ -185,7 +185,7 @@ function Index() {
           {/* Pick Location */}
           <div className="relative w-full lg:w-auto px-4 py-3 group border-gray-600">
             <button className="flex items-center gap-2 w-full justify-between text-gray-400">
-              Pick Up Location
+              Điểm xuất phát
               <i className="ri-arrow-down-s-line text-yellow-500"></i>
             </button>
             <div
@@ -194,16 +194,16 @@ function Index() {
             >
               <ul className="divide-y divide-gray-700">
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  A
+                  Hà Nội
                 </li>
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  B
+                  Đà Nẵng
                 </li>
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  C
+                  Hồ Chí Minh
                 </li>
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  D
+                  Cần Thơ
                 </li>
               </ul>
             </div>
@@ -217,7 +217,7 @@ function Index() {
               selected={pickUpDate}
               onChange={(date) => setPickUpDate(date)}
               dateFormat="dd MMM yyyy"
-              placeholderText="Pick Up Date"
+              placeholderText="Ngày đi"
               ref={datePickerRef}
               className={`bg-[#1f1f1f] text-white outline-none cursor-pointer w-full ${
                 !pickUpDate ? "text-gray-400" : ""
@@ -230,7 +230,7 @@ function Index() {
           {/* Drop location */}
           <div className="relative w-full lg:w-auto px-4 py-3 group border-gray-600">
             <button className="flex items-center gap-2 w-full justify-between text-gray-400">
-              Drop Off Location
+              Địa điểm đến
               <i className="ri-arrow-down-s-line text-yellow-500"></i>
             </button>
             <div
@@ -239,19 +239,19 @@ function Index() {
             >
               <ul className="divide-y divide-gray-700">
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  Drop Off Location
+                  Địa điểm đến
                 </li>
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  A
+                  Cần Thơ
                 </li>
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  B
+                  Hồ Chí Minh
                 </li>
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  C
+                  Đà Nẵng
                 </li>
                 <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                  D
+                  Hà Nội
                 </li>
               </ul>
             </div>
@@ -265,7 +265,7 @@ function Index() {
               selected={returnDate}
               onChange={(date) => setPickUpDate(date)}
               dateFormat="dd MMM yyyy"
-              placeholderText="Return Date"
+              placeholderText="Ngày về"
               ref={returnPickerRef}
               className={`bg-[#1f1f1f] text-white outline-none cursor-pointer w-full ${
                 !returnDate ? "text-gray-400" : ""
@@ -282,36 +282,36 @@ function Index() {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <p className="uppercase test-sm tracking-widest text-[#f5b754] mb-2">
-              Car Rental
+              Thuê xe
             </p>
             <h2 className="text-4xl md:text-5xl font-bold mb-3 font-bricolage ">
-              We Are More Than <br />
+              Chúng tôi mang đến nhiều hơn <br />
               <span className="text-[#f5b754] text-bricolage">
-                A Car Rental Company
+                một dịch vụ thuê xe thông thường
               </span>
             </h2>
             <p className="text-gray-400 leading-realaxed my-6">
-              Free cancellation or changes for most rental bookings, up to 48
-              hours before pickup. Trusted by 1000+ companies around the world.
+              Hệ thống hướng tới cung cấp trải nghiệm đặt xe linh hoạt với khả
+              năng hủy hoặc thay đổi trước thời điểm nhận xe.
             </p>
             <div className="space-y-4 mb-10">
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-[#f5b754] ">
                   <i className="ri-check-double-line"></i>
                 </div>
-                <span className="text-white">Sports and Luxury Cars</span>
+                <span className="text-white">Xe thể thao và xe hạng sang</span>
               </div>
 
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full bg-[#222] flex items-center justify-center text-[#f5b754] ">
                   <i className="ri-check-double-line"></i>
                 </div>
-                <span className="text-white">Economies Cars</span>
+                <span className="text-white">Nền kinh tế xe hơi</span>
               </div>
             </div>
 
             <button className="bg-[#f5b754] text-black px-8 py-4 rounded-full font-medium flex items-center gap-2 hover:bg-white transition">
-              Read More <i className="ri-arrow-right-line"></i>
+              Đọc thêm <i className="ri-arrow-right-line"></i>
             </button>
           </div>
           <div className="relative">
@@ -331,7 +331,7 @@ function Index() {
             Rent now
           </p>
           <h2 className="text-4xl md:text-5xl font-bold mb-3 font-bricolage ">
-            Book Auto Rental
+            Đặt xe tự động
           </h2>
 
           {/* Book Option */}
@@ -342,7 +342,7 @@ function Index() {
             {/* Cars Type */}
             <div className="relative w-full lg:w-auto px-4 py-3 group border-gray-600">
               <button className="flex items-center gap-2 w-full justify-between text-gray-400">
-                Choose Car Type
+                Chọn loại xe
                 <i className="ri-arrow-down-s-line text-yellow-500"></i>
               </button>
               <div
@@ -351,7 +351,7 @@ function Index() {
               >
                 <ul className="divide-y divide-gray-700">
                   <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
-                    Choose Car Type
+                    Chọn loại xe
                   </li>
                   <li className="px-4 py-2 hover:bg-[#f5b750] transition cusor-pointer">
                     Sport Cars
@@ -378,7 +378,7 @@ function Index() {
             {/* Pick Location */}
             <div className="relative w-full lg:w-auto px-4 py-3 group border-gray-600">
               <button className="flex items-center gap-2 w-full justify-between text-gray-400">
-                Pick Up Location
+                Địa điểm xuất phát
                 <i className="ri-arrow-down-s-line text-yellow-500"></i>
               </button>
               <div
@@ -410,7 +410,7 @@ function Index() {
                 selected={pickUpDate}
                 onChange={(date) => setPickUpDate(date)}
                 dateFormat="dd MMM yyyy"
-                placeholderText="Pick Up Date"
+                placeholderText="Ngày đi "
                 ref={datePickerRef}
                 className={`bg-[#1f1f1f] text-white outline-none cursor-pointer w-full ${
                   !pickUpDate ? "text-gray-400" : ""
@@ -423,7 +423,7 @@ function Index() {
             {/* Drop location */}
             <div className="relative w-full lg:w-auto px-4 py-3 group border-gray-600">
               <button className="flex items-center gap-2 w-full justify-between text-gray-400">
-                Drop Off Location
+                Địa điểm đến
                 <i className="ri-arrow-down-s-line text-yellow-500"></i>
               </button>
               <div
@@ -456,7 +456,7 @@ function Index() {
                 selected={returnDate}
                 onChange={(date) => setPickUpDate(date)}
                 dateFormat="dd MMM yyyy"
-                placeholderText="Return Date"
+                placeholderText="Ngày về"
                 ref={returnPickerRef}
                 className={`bg-[#1f1f1f] text-white outline-none cursor-pointer w-full ${
                   !returnDate ? "text-gray-400" : ""
@@ -473,11 +473,14 @@ function Index() {
       <div className="luxury-cars py-[150px]">
         <div className="text-center">
           <p className="uppercase test-sm tracking-widest text-[#f5b754] mb-2">
-            Select Your Car
+            Chọn xe của bạn
           </p>
           <h2 className="text-4xl text-white md:text-5xl font-bold mb-3 font-bricolage ">
-            Luxury
-            <span className="text-[#f5b754] text-bricolage"> Car Fleet</span>
+            Danh sách
+            <span className="text-[#f5b754] text-bricolage">
+              {" "}
+              Xe Có Thể Chọn
+            </span>
           </h2>
         </div>
         <Swiper
@@ -534,13 +537,13 @@ function Index() {
                   <div className="mt-4 flex justify-between items-center">
                     <Link to={`/car/${car.id}`}>
                       <button className="bg-[#f5b754] text-black px-4 py-2 rounded-full text-sm hover:bg-[#f5b754]/90 transition">
-                        Details
+                        Mô tả
                       </button>
                     </Link>
 
                     <p className="text-[#f5b754] font-bold text-lg">
                       ${car.price}
-                      <span className="text-sm text-white">/day</span>
+                      <span className="text-sm text-white">/Ngày</span>
                     </p>
                   </div>
                 </div>
@@ -553,11 +556,14 @@ function Index() {
       <div className="car-type lg:px-[12%] px-[8%] py-[150px] section-effect">
         <div className="text-center">
           <p className="uppercase test-sm tracking-widest text-[#f5b754] mb-2">
-            Select Your Car
+            Chọn xe của bạn
           </p>
           <h2 className="text-4xl md:text-5xl font-bold mb-3 font-bricolage ">
-            Luxury
-            <span className="text-[#f5b754] text-bricolage"> Car Fleet</span>
+            Danh Sách
+            <span className="text-[#f5b754] text-bricolage">
+              {" "}
+              Xe Có Thể Chọn
+            </span>
           </h2>
         </div>
         <Swiper
@@ -604,7 +610,7 @@ function Index() {
                 className="w-full h-72 object-cover z-[5]"
               />
               <h3 className="absolute top-4 left-4 text-white text-2xl font-semibold drop-shadow-md z-[5]">
-                Convertible
+                Xe Mui Trần
               </h3>
               <div className="absolute z-[5]">
                 <div className="curv">
@@ -624,7 +630,7 @@ function Index() {
                 className="w-full h-72 object-cover z-[5]"
               />
               <h3 className="absolute top-4 left-4 text-white text-2xl font-semibold drop-shadow-md z-[5]">
-                Sports Car
+                Xe Thể Thao
               </h3>
               <div className="absolute z-[5]">
                 <div className="curv">
@@ -644,7 +650,7 @@ function Index() {
                 className="w-full h-72 object-cover z-[5]"
               />
               <h3 className="absolute top-4 left-4 text-white text-2xl font-semibold drop-shadow-md z-[5]">
-                Luxury Cars
+                Xe Hạng Sang
               </h3>
               <div className="absolute z-[5]">
                 <div className="curv">
@@ -684,7 +690,7 @@ function Index() {
                 className="w-full h-72 object-cover z-[5]"
               />
               <h3 className="absolute top-4 left-4 text-white text-2xl font-semibold drop-shadow-md z-[5]">
-                Small Cars
+                Xe Cỡ Nhỏ
               </h3>
               <div className="absolute z-[5]">
                 <div className="curv">
@@ -701,22 +707,22 @@ function Index() {
       <div className="our-service lg:px-[12%] px-[8%] py-[150px] bg-[#1b1b1b] section-effect">
         <div className="our-service-content mb-20 text-center text-white">
           <p className="uppercase text-sm tracking-[5px] text-[#f5b754] mb-2 ">
-            What We Do
+            Chúng Tôi Làm Gì
           </p>
           <h2 className="text-4xl md:text-5xl font-bold mb-3 font-bricolage">
-            Other Services
+            Để Phục Vụ Khách Hàng
           </h2>
         </div>
         <div className="our-service-wrapper">
           <div className="grid w-full gap-12 grid-cols-1 lg:grid-cols-3">
             <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full ">
               <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-                Daily Car Rental
+                Thuê Xe Theo Ngày
               </h5>
               <p className="text-[#999] text-lg">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-                pharetra dictum.
+                Cho thuê xe theo ngày cho phép khách hàng lựa chọn phương tiện
+                và thời gian thuê cụ thể theo ngày, phù hợp với nhu cầu di
+                chuyển ngắn hạn.
               </p>
               <div className="curv">
                 <div className="service-item-curv section-item-curv">1.</div>
@@ -725,12 +731,13 @@ function Index() {
 
             <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full">
               <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-                Monthly Car Rental
+                Thuê Xe Theo Tháng
               </h5>
               <p className="text-[#999] text-lg">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-                pharetra dictum.
+                Dịch vụ thuê xe với thời gian trên 1 tháng được chúng tôi xếp
+                vào nhóm dịch vụ cho thuê xe dài hạn. Đây là dịch vụ chủ lực của
+                chúng tôi, được cung cấp cho cả khách hàng cá nhân và khách hàng
+                doanh nghiệp.
               </p>
               <div className="curv">
                 <div className="service-item-curv section-item-curv">2.</div>
@@ -739,12 +746,14 @@ function Index() {
 
             <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full">
               <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-                Annual Car Rental
+                Cho Thuê Xe Cưới
               </h5>
               <p className="text-[#999] text-lg">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-                pharetra dictum.
+                Xe cưới cũng là yếu tố quan trọng giúp đám cưới của bạn thêm
+                phần hoàn hảo hơn. Là phương tiện cực kì quan trọng trong ngày
+                cưới, chính vì thế xe cưới được rất nhiều cô dâu, chú rể quan
+                tâm và đầu tư nhiều hơn(Công ty chúng tôi không nhận trang trí
+                xe cưới).
               </p>
               <div className="curv">
                 <div className="service-item-curv section-item-curv">3. </div>
@@ -757,11 +766,14 @@ function Index() {
       <div className="Testimonials lg:px-[12%] px-[8%] py-[150px] bg-[#1b1b1b] section-effect">
         <div className="our-service-content mb-20 text-center text-white">
           <p className="uppercase text-sm tracking-[5px] text-[#f5b754] mb-2 ">
-            Testimonials
+            Đánh Giá (Demo)
           </p>
           <h2 className="text-4xl md:text-5xl font-bold mb-3 font-bricolage">
-            What Client{" "}
-            <span className="text-[#f5b754] font-bricolage"> Say</span>
+            Khách Hàng Nói Gì Về Chúng Tôi
+            <span className="text-[#f5b754] font-bricolage">
+              {" "}
+              (Dữ Liệu Mẫu)
+            </span>
           </h2>
         </div>
         <Swiper
@@ -799,11 +811,7 @@ function Index() {
                     ))}
                 </div>
               </div>
-              <div className="text-[#ccc] text-lg mb-6">
-                Came in for walk-in inspection and oil change. Brown in delight
-                to deal with. He took my car right in, and completed work in a
-                short time.
-              </div>
+              <div className="text-[#ccc] text-lg mb-6">Thật là tuyệt vời</div>
               <div className="flex items-center mt-6">
                 <div className="curv">
                   <div className="section-item-curv test-curv">
@@ -812,9 +820,9 @@ function Index() {
                 </div>
                 <div className="ps-[100px]">
                   <p className="semi-bold font-bricolage text-[#f5b754]">
-                    Olivia Brown
+                    Nguyễn C
                   </p>
-                  <p className="text-[#999] text-sm ">Customer</p>
+                  <p className="text-[#999] text-sm ">Khách Hàng</p>
                 </div>
               </div>
             </div>
@@ -835,11 +843,7 @@ function Index() {
                     ))}
                 </div>
               </div>
-              <div className="text-[#ccc] text-lg mb-6">
-                Came in for walk-in inspection and oil change. Brown in delight
-                to deal with. He took my car right in, and completed work in a
-                short time.
-              </div>
+              <div className="text-[#ccc] text-lg mb-6">Sẽ quay lại lần 2!</div>
               <div className="flex items-center mt-6">
                 <div className="curv">
                   <div className="section-item-curv test-curv">
@@ -848,9 +852,9 @@ function Index() {
                 </div>
                 <div className="ps-[100px]">
                   <p className="semi-bold font-bricolage text-[#f5b754]">
-                    Dan Martin
+                    Nguyễn Thị A
                   </p>
-                  <p className="text-[#999] text-sm ">Customer</p>
+                  <p className="text-[#999] text-sm ">Khách Hàng</p>
                 </div>
               </div>
             </div>
@@ -872,9 +876,7 @@ function Index() {
                 </div>
               </div>
               <div className="text-[#ccc] text-lg mb-6">
-                Came in for walk-in inspection and oil change. Brown in delight
-                to deal with. He took my car right in, and completed work in a
-                short time.
+                Lân đầu tôi thấy gara nào cho thuê xe sang mà rẻ như này!!!
               </div>
               <div className="flex items-center mt-6">
                 <div className="curv">
@@ -884,9 +886,9 @@ function Index() {
                 </div>
                 <div className="ps-[100px]">
                   <p className="semi-bold font-bricolage text-[#f5b754]">
-                    Emily Martin
+                    Nguyễn Văn A
                   </p>
-                  <p className="text-[#999] text-sm ">Customer</p>
+                  <p className="text-[#999] text-sm ">Khách Hàng</p>
                 </div>
               </div>
             </div>
@@ -907,9 +909,8 @@ function Index() {
                 </div>
               </div>
               <div className="text-[#ccc] text-lg mb-6">
-                Came in for walk-in inspection and oil change. Brown in delight
-                to deal with. He took my car right in, and completed work in a
-                short time.
+                I am a foreigner residing in Vietnam. I find the service here to
+                be excellent.
               </div>
               <div className="flex items-center mt-6">
                 <div className="curv">
@@ -943,9 +944,7 @@ function Index() {
                 </div>
               </div>
               <div className="text-[#ccc] text-lg mb-6">
-                Came in for walk-in inspection and oil change. Brown in delight
-                to deal with. He took my car right in, and completed work in a
-                short time.
+                Nội thất xe sạch sẽ, trước khi đến còn gọi báo trước 25 phút.
               </div>
               <div className="flex items-center mt-6">
                 <div className="curv">
@@ -955,9 +954,9 @@ function Index() {
                 </div>
                 <div className="ps-[100px]">
                   <p className="semi-bold font-bricolage text-[#f5b754]">
-                    Dan Martin
+                    Nguyễn D
                   </p>
-                  <p className="text-[#999] text-sm ">Customer</p>
+                  <p className="text-[#999] text-sm ">Khách Hàng</p>
                 </div>
               </div>
             </div>
@@ -969,11 +968,11 @@ function Index() {
       <div className="blog lg:px-[12%] px-[8%] py-[150px] bg-[#1b1b1b] section-effect">
         <div className="blog-content mb-20 text-center text-white">
           <p className="uppercase text-sm tracking-[5px] text-[#f5b754] mb-2 ">
-            Our Blog
+            Bài Báo Về Chúng Tôi
           </p>
           <h2 className="text-4xl md:text-5xl font-bold mb-3 font-bricolage">
-            Latest
-            <span className="text-[#f5b754] font-bricolage"> News</span>
+            Bảng Tin
+            <span className="text-[#f5b754] font-bricolage"> Cần Thiết</span>
           </h2>
         </div>
         <Swiper
@@ -1007,7 +1006,7 @@ function Index() {
                       <i className="ri-user-line text-sm"> </i> Viet Duc
                     </span>
                     <span className="flex items-center gap-1">
-                      <i className="ri-folder-line text-sm"> </i> Vehicles
+                      <i className="ri-folder-line text-sm"> </i> Xe hơi
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold text-white leading-snug mb-3">
@@ -1015,7 +1014,7 @@ function Index() {
                       href="#"
                       className="hover:text-[#f4a950] transition-colors duration-300"
                     >
-                      Rental cost of sports other cars
+                      Giấy tờ cần thiết cho thuê xe
                     </a>
                   </h3>
                   <a
@@ -1046,7 +1045,7 @@ function Index() {
                       <i className="ri-user-line text-sm"> </i> Viet Duc
                     </span>
                     <span className="flex items-center gap-1">
-                      <i className="ri-folder-line text-sm"> </i> Vehicles
+                      <i className="ri-folder-line text-sm"> </i> Xe hơi
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold text-white leading-snug mb-3">
@@ -1054,7 +1053,7 @@ function Index() {
                       href="#"
                       className="hover:text-[#f4a950] transition-colors duration-300"
                     >
-                      Rental cost of sports other cars
+                      Chi phí thuê xe thể thao và các loại xe khác.
                     </a>
                   </h3>
                   <a
@@ -1085,7 +1084,7 @@ function Index() {
                       <i className="ri-user-line text-sm"> </i> Viet Duc
                     </span>
                     <span className="flex items-center gap-1">
-                      <i className="ri-folder-line text-sm"> </i> Vehicles
+                      <i className="ri-folder-line text-sm"> </i> Xe hơi
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold text-white leading-snug mb-3">
@@ -1093,7 +1092,8 @@ function Index() {
                       href="#"
                       className="hover:text-[#f4a950] transition-colors duration-300"
                     >
-                      Rental cost of sports other cars
+                      Thuê xe ô tô: Làm thế nào để kiểm tra các khoản phạt khi
+                      lái xe?
                     </a>
                   </h3>
                   <a
@@ -1124,7 +1124,7 @@ function Index() {
                       <i className="ri-user-line text-sm"> </i> Viet Duc
                     </span>
                     <span className="flex items-center gap-1">
-                      <i className="ri-folder-line text-sm"> </i> Vehicles
+                      <i className="ri-folder-line text-sm"> </i> Xe hơi
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold text-white leading-snug mb-3">
@@ -1132,7 +1132,7 @@ function Index() {
                       href="#"
                       className="hover:text-[#f4a950] transition-colors duration-300"
                     >
-                      Rental cost of sports other cars
+                      Làm thế nào để thuê xe tại nhà ga sân bay?{" "}
                     </a>
                   </h3>
                   <a

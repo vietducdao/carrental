@@ -17,9 +17,9 @@ function About() {
       {/* Banner */}
       <div className="banner-section flex justify-center  text-[#f5b754] items-center">
         <div className="banner-section-content text-center z-10">
-          <h6 className="uppercase">- Retax</h6>
+          <h6 className="uppercase">- Thông Tin</h6>
           <h1 className="text-5xl font-semibold font-bricolage text-[#f5b754]">
-            <span className="font-bricolage text-white">About </span> Us
+            <span className="font-bricolage text-white">Về </span> Chúng Tôi
           </h1>
         </div>
       </div>
@@ -29,11 +29,14 @@ function About() {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-4xl font-bold mb-4 leading-tight">
-              We Are More Than <br />
-              <span className="text-[#f5b754]">A Car Rental Company</span>
+              Chúng tôi mang đến nhiều hơn <br />
+              <span className="text-[#f5b754]">
+                một dịch vụ thuê xe thông thường
+              </span>
             </h2>
             <p className="text-gray-400 my-6">
-              Free cancellation or changes for most rental bookings.
+              Hầu hết các đặt phòng cho thuê đều cho phép hủy hoặc thay đổi miễn
+              phí.
             </p>
           </div>
           <img src={about} className="rounded-3xl shadow-xl" />
@@ -54,10 +57,10 @@ function About() {
             <div className="flex items-center gap-2 border border-[#333] rounded-xl px-4 py-3 focus-within:border-[#f5b754]">
               <FaCarSide className="text-[#f5b754]" />
               <select className="bg-transparent w-full outline-none text-gray-300">
-                <option>Car Type</option>
+                <option>Loại xe</option>
                 <option>SUV</option>
-                <option>Luxury</option>
-                <option>Sedan</option>
+                <option>Sang Trọng</option>
+                <option>4 chỗ</option>
               </select>
             </div>
 
@@ -66,7 +69,7 @@ function About() {
               <FaMapMarkerAlt className="text-[#f5b754]" />
               <input
                 type="text"
-                placeholder="Pick Up Location"
+                placeholder="Địa Điếm Xuất Phát"
                 className="bg-transparent w-full outline-none text-gray-300 placeholder:text-gray-500"
               />
             </div>
@@ -76,7 +79,7 @@ function About() {
               <FaMapMarkerAlt className="text-[#f5b754]" />
               <input
                 type="text"
-                placeholder="Drop Location"
+                placeholder="Địa Điểm Đến"
                 className="bg-transparent w-full outline-none text-gray-300 placeholder:text-gray-500"
               />
             </div>
@@ -87,7 +90,7 @@ function About() {
               <DatePicker
                 selected={pickUpDate}
                 onChange={(date) => setPickUpDate(date)}
-                placeholderText="Pick Up Date"
+                placeholderText="Ngày Rời ĐI"
                 className="bg-transparent w-full outline-none text-gray-300"
                 popperClassName="z-[9999]"
                 portalId="root"
@@ -101,7 +104,7 @@ function About() {
               <DatePicker
                 selected={returnDate}
                 onChange={(date) => setReturnDate(date)}
-                placeholderText="Return Date"
+                placeholderText="Ngày Trở Về"
                 className="bg-transparent w-full outline-none text-gray-300"
                 popperClassName="z-[9999]"
                 portalId="root"
@@ -115,7 +118,7 @@ function About() {
               hover:bg-white transition duration-300 hover:scale-105 
               shadow-lg shadow-[#f5b754]/20"
             >
-              Search
+              Đặt Xe
             </button>
           </div>
         </motion.div>

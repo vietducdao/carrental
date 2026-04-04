@@ -1,67 +1,62 @@
 [
   {
     "id": "1",
-    "name": "Lamboghini Urus",
+    "name": "Lamborghini Urus",
     "image": "/images/cars-slide-01.jpg",
     "door": "4",
     "passengers": "5",
-    "transmission": "auto",
-    "Bags": "2 Bags",
+    "transmission": "Tự động",
+    "bags": "2 vali",
     "price": "750"
   },
-
   {
     "id": "2",
     "name": "Aston Martin DBX",
     "image": "/images/cars-slide-02.jpg",
     "door": "4",
     "passengers": "5",
-    "transmission": "auto",
-    "Bags": "2 Bags",
+    "transmission": "Tự động",
+    "bags": "2 vali",
     "price": "700"
   },
-
   {
     "id": "3",
     "name": "Bugatti Mistral W16",
     "image": "/images/cars-slide-03.jpg",
     "door": "4",
     "passengers": "5",
-    "transmission": "auto",
-    "Bags": "2 Bags",
+    "transmission": "Tự động",
+    "bags": "2 vali",
     "price": "850"
   },
-
   {
     "id": "4",
-    "name": "Bently Bentayga",
+    "name": "Bentley Bentayga",
     "image": "/images/cars-slide-04.jpg",
     "door": "4",
     "passengers": "5",
-    "transmission": "auto",
-    "Bags": "2 Bags",
+    "transmission": "Tự động",
+    "bags": "2 vali",
     "price": "600"
   },
-
   {
     "id": "5",
-    "name": "Rolls Royce Cullinan",
+    "name": "Rolls-Royce Cullinan",
     "image": "/images/cars-slide-05.jpg",
     "door": "4",
     "passengers": "5",
-    "transmission": "auto",
-    "Bags": "2 Bags",
+    "transmission": "Tự động",
+    "bags": "2 vali",
     "price": "650"
   },
-
   {
     "id": "6",
     "name": "Bentley Continental",
     "image": "/images/cars-slide-06.jpg",
     "door": "4",
     "passengers": "5",
-    "transmission": "auto",
-    "Bags": "2 Bags",
+    "transmission": "Tự động",
+    "bags": "2 vali",
     "price": "500"
   }
 ]

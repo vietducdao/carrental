@@ -6,9 +6,9 @@ function Services() {
       {/* Page Section */}
       <div className="banner-section about-banner-section flex justify-center  text-[#f5b754] items-center">
         <div className="banner-section-content text-center z-10">
-          <h6 className="uppercase">- What We Do</h6>
+          <h6 className="uppercase">- Chúng Tôi Làm Gì</h6>
           <h1 className="text-5xl font-semibold font-bricolage text-[#f5b754]">
-            <span className="font-bricolage text-white">Our </span> Services
+            <span className="font-bricolage text-white">Để </span> Phục Vụ Bạn
           </h1>
         </div>
       </div>
@@ -19,12 +19,12 @@ function Services() {
           {/* card 1 */}
           <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full ">
             <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-              Corporate Car Rental
+              Dịch vụ thuê xe doanh nghiệp{" "}
             </h5>
             <p className="text-[#999] text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-              pharetra dictum.
+              Tthuê xe doanh nghiệp hỗ trợ các tổ chức, công ty thuê phương tiện
+              theo nhu cầu sử dụng dài hạn hoặc theo hợp đồng, giúp tối ưu chi
+              phí và quản lý hiệu quả.
             </p>
             <div className="curv">
               <div className="service-item-curv section-item-curv">1.</div>
@@ -34,12 +34,12 @@ function Services() {
           {/* card 2 */}
           <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full ">
             <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-              Car Rental With Driver
+              Dịch Vụ Thuê Xe Có Tài Xế
             </h5>
             <p className="text-[#999] text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-              pharetra dictum.
+              Thuê xe có tài xế cho phép khách hàng lựa chọn phương tiện kèm
+              theo tài xế, phù hợp với nhu cầu di chuyển an toàn, tiện lợi và
+              không cần tự lái.
             </p>
             <div className="curv">
               <div className="service-item-curv section-item-curv"> 2.</div>
@@ -49,12 +49,12 @@ function Services() {
           {/* card 3 */}
           <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full ">
             <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-              Airport Transfer
+              Dịch Vụ Đưa Đón Tại Sân Bay
             </h5>
             <p className="text-[#999] text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-              pharetra dictum.
+              Đưa đón sân bay cho phép khách hàng đặt xe di chuyển giữa sân bay
+              và các địa điểm theo yêu cầu, đảm bảo đúng giờ, thuận tiện và an
+              toàn.
             </p>
             <div className="curv">
               <div className="service-item-curv section-item-curv"> 3.</div>
@@ -64,12 +64,12 @@ function Services() {
           {/* card 4 */}
           <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full ">
             <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-              Fleet Leasing
+              Đặt Thuê Nhiều Xe Cùng Lúc
             </h5>
             <p className="text-[#999] text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-              pharetra dictum.
+              Cho phép khách hàng (cá nhân hoặc doanh nghiệp) đặt nhiều phương
+              tiện cùng lúc, đáp ứng nhu cầu tổ chức sự kiện, du lịch hoặc vận
+              chuyển quy mô lớn.
             </p>
             <div className="curv">
               <div className="service-item-curv section-item-curv"> 4.</div>
@@ -79,30 +79,30 @@ function Services() {
           {/* card 5 */}
           <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full ">
             <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-              VIP Transfer
+              Dành Cho Khách VIP (comming soon!)
             </h5>
             <p className="text-[#999] text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-              pharetra dictum.
+              Chức năng dành cho khách VIP cung cấp các dịch vụ cao cấp với ưu
+              đãi đặc biệt, hỗ trợ riêng và trải nghiệm tốt hơn cho người dùng
+              có nhu cầu cao.
             </p>
             <div className="curv">
               <div className="service-item-curv section-item-curv"> 5.</div>
             </div>
           </div>
 
-          {/* card 1 */}
+          {/* card 6 */}
           <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full ">
             <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-              Corporate Car Rental
+              Cho Thuê Xe Doanh Nghiệp
             </h5>
             <p className="text-[#999] text-lg">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-              rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-              pharetra dictum.
+              Dịch vụ cho thuê xe doanh nghiệp hỗ trợ các tổ chức, công ty thuê
+              phương tiện theo nhu cầu dài hạn hoặc theo hợp đồng, giúp tối ưu
+              chi phí và nâng cao hiệu quả quản lý.
             </p>
             <div className="curv">
-              <div className="service-item-curv section-item-curv"> 1.</div>
+              <div className="service-item-curv section-item-curv"> 6.</div>
             </div>
           </div>
         </div>
@@ -111,22 +111,22 @@ function Services() {
       <div className="our-service lg:px-[12%] px-[8%] py-[150px] bg-[#1b1b1b] section-effect">
         <div className="our-service-content mb-20 text-center text-white">
           <p className="uppercase text-sm tracking-[5px] text-[#f5b754] mb-2 ">
-            What We Do
+            Chúng Tôi Làm Gì
           </p>
           <h2 className="text-4xl md:text-5xl font-bold mb-3 font-bricolage">
-            Other Services
+            Để Phục Vụ Khách Hàng
           </h2>
         </div>
         <div className="our-service-wrapper">
           <div className="grid w-full gap-12 grid-cols-1 lg:grid-cols-3">
             <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full ">
               <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-                Daily Car Rental
+                Thuê Xe Theo Ngày
               </h5>
               <p className="text-[#999] text-lg">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-                pharetra dictum.
+                Cho thuê xe theo ngày cho phép khách hàng lựa chọn phương tiện
+                và thời gian thuê cụ thể theo ngày, phù hợp với nhu cầu di
+                chuyển ngắn hạn.
               </p>
               <div className="curv">
                 <div className="service-item-curv section-item-curv">1.</div>
@@ -135,12 +135,13 @@ function Services() {
 
             <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full">
               <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-                Monthly Car Rental
+                Thuê Xe Theo Tháng
               </h5>
               <p className="text-[#999] text-lg">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-                pharetra dictum.
+                Dịch vụ thuê xe với thời gian trên 1 tháng được chúng tôi xếp
+                vào nhóm dịch vụ cho thuê xe dài hạn. Đây là dịch vụ chủ lực của
+                chúng tôi, được cung cấp cho cả khách hàng cá nhân và khách hàng
+                doanh nghiệp.
               </p>
               <div className="curv">
                 <div className="service-item-curv section-item-curv">2.</div>
@@ -149,12 +150,14 @@ function Services() {
 
             <div className="service-item relative text-white rounded-[30px] bg-[#222222] w-full">
               <h5 className="font-semibold text-2xl mb-3 font-bricolage">
-                Annual Car Rental
+                Cho Thuê Xe Cưới
               </h5>
               <p className="text-[#999] text-lg">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                rhoncus metus sed erat vulputate auctor. Ut at ligula ut velit
-                pharetra dictum.
+                Xe cưới cũng là yếu tố quan trọng giúp đám cưới của bạn thêm
+                phần hoàn hảo hơn. Là phương tiện cực kì quan trọng trong ngày
+                cưới, chính vì thế xe cưới được rất nhiều cô dâu, chú rể quan
+                tâm và đầu tư nhiều hơn(Công ty chúng tôi không nhận trang trí
+                xe cưới).
               </p>
               <div className="curv">
                 <div className="service-item-curv section-item-curv">3. </div>

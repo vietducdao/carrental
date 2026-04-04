@@ -13,7 +13,7 @@ function Blog() {
       {/* Section banner */}
       <div className="banner-section blog-banner-section flex justify-center items-center">
         <div className="banner-section-content text-center z-10">
-          <h6 className="uppercase text-[#f5b754]"> - Blog & News</h6>
+          <h6 className="uppercase text-[#f5b754]"> - Blog & Tin tức</h6>
           <h1 className="text-5xl font-semibold font-bricolage text-[#f5b754]">
             <span className="font-bricolage text-white">Select </span> Luxury
             Car
