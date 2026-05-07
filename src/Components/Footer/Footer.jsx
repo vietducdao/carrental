@@ -10,19 +10,22 @@ import brand4 from "../../assets/brand-4.png";
 import brand5 from "../../assets/brand-5.png";
 import brand6 from "../../assets/brand-6.png";
 import brand7 from "../../assets/brand-7.png";
+import { useLanguage } from "../../context/LanguageContext";
 
 function Footer() {
+  const { t } = useLanguage();
+
   return (
     <>
       <div className="footer-banner text-white lg:px-[12%] px-[8%] py-[150px]">
         <div className="footer-banner-content text-center text-white relative">
           <p className="uppercase text-sm tracking-[5px] text-[#f5b754] mb-2 ">
-            Thuê Xe Nhanh
+            {t.footer.quickRentSub}
           </p>
           <h2 className="text-4xl md:text-5xl font-bold mb-3 text-white font-bricolage">
-            Mà Không Cần Đặt Trước?
+            {t.footer.quickRentTitle}
           </h2>
-          <p className="py-3 ">Đừng Ngần Ngại Mà Hãy Nhắn Tin Cho Chúng Tôi</p>
+          <p className="py-3 ">{t.footer.quickRentDesc}</p>
           <div className="footer-banner-button mt-5 text-black flex flex-col sm:flex-row gap-3">
             <button className="btn btn-custom bg-[#f5b754] border border-white py-4 px-14 text-lg font-bricolage rounded-full flex items-center hover:translate-y-[-10px] hover:bg-white transition duration-300">
               Messenger
@@ -57,71 +60,37 @@ function Footer() {
         >
           <SwiperSlide>
             <div className="brand-image h-[100px] w-full group overflow-hidden transition">
-              <img
-                src={brand1}
-                alt="brand-image"
-                className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300"
-              />
+              <img src={brand1} alt="brand-image" className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300" />
             </div>
           </SwiperSlide>
-
           <SwiperSlide>
             <div className="brand-image h-[100px] w-full group overflow-hidden transition">
-              <img
-                src={brand2}
-                alt="brand-image"
-                className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300"
-              />
+              <img src={brand2} alt="brand-image" className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300" />
             </div>
           </SwiperSlide>
-
           <SwiperSlide>
             <div className="brand-image h-[100px] w-full group overflow-hidden transition">
-              <img
-                src={brand3}
-                alt="brand-image"
-                className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300"
-              />
+              <img src={brand3} alt="brand-image" className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300" />
             </div>
           </SwiperSlide>
-
           <SwiperSlide>
             <div className="brand-image h-[100px] w-full group overflow-hidden transition">
-              <img
-                src={brand4}
-                alt="brand-image"
-                className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300"
-              />
+              <img src={brand4} alt="brand-image" className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300" />
             </div>
           </SwiperSlide>
-
           <SwiperSlide>
             <div className="brand-image h-[100px] w-full group overflow-hidden transition">
-              <img
-                src={brand5}
-                alt="brand-image"
-                className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300"
-              />
+              <img src={brand5} alt="brand-image" className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300" />
             </div>
           </SwiperSlide>
-
           <SwiperSlide>
             <div className="brand-image h-[100px] w-full group overflow-hidden transition">
-              <img
-                src={brand6}
-                alt="brand-image"
-                className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300"
-              />
+              <img src={brand6} alt="brand-image" className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300" />
             </div>
           </SwiperSlide>
-
           <SwiperSlide>
             <div className="brand-image h-[100px] w-full group overflow-hidden transition">
-              <img
-                src={brand7}
-                alt="brand-image"
-                className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300"
-              />
+              <img src={brand7} alt="brand-image" className="w-full h-full object-contain filter grayscale-0 group-hover:grayscale transition duration-300" />
             </div>
           </SwiperSlide>
         </Swiper>
@@ -133,7 +102,7 @@ function Footer() {
               <i className="ri-phone-line text-2xl"></i>
             </div>
             <div>
-              <h5 className="font-semibold font-bricolage">Gọi cho tôi tạis</h5>
+              <h5 className="font-semibold font-bricolage">{t.footer.callLabel}</h5>
               <p>+84 786 783 493</p>
             </div>
           </div>
@@ -143,9 +112,7 @@ function Footer() {
               <i className="ri-mail-line text-2xl"></i>
             </div>
             <div>
-              <h5 className="font-semibold font-bricolage">
-                Phản hổi cho chúng tôi
-              </h5>
+              <h5 className="font-semibold font-bricolage">{t.footer.emailLabel}</h5>
               <p>vietd4220@gmail.com</p>
             </div>
           </div>
@@ -155,7 +122,7 @@ function Footer() {
               <i className="ri-map-pin-line text-2xl"></i>
             </div>
             <div>
-              <h5 className="font-semibold font-bricolage">Địa Chỉ Đặt Xe</h5>
+              <h5 className="font-semibold font-bricolage">{t.footer.addressLabel}</h5>
               <p>25b, Ngõ 61, Yên Hoà, Hanoi</p>
             </div>
           </div>
@@ -168,88 +135,36 @@ function Footer() {
                   Car<span className="text-[#f5b754]">shops</span>
                 </a>
               </h1>
-              <p className="text-[#999] mb-6 md:w-[90%] w-full">
-                Trải nghiệm sự dễ dàng và tiện lợi khi thuê xe với Carshops.
-              </p>
+              <p className="text-[#999] mb-6 md:w-[90%] w-full">{t.footer.tagline}</p>
               <div className="flex gap-4">
-                <a
-                  href="#"
-                  className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300"
-                >
+                <a href="#" className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300">
                   <i className="fa-brands fa-facebook-f"></i>
                 </a>
-                <a
-                  href="#"
-                  className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300"
-                >
+                <a href="#" className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300">
                   <i className="fa-brands fa-x-twitter"></i>
                 </a>
-                <a
-                  href="#"
-                  className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300"
-                >
+                <a href="#" className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300">
                   <i className="fa-brands fa-tiktok"></i>
                 </a>
               </div>
             </div>
             <div className="flex-1">
-              <h4 className="text-2xl font-semibold font-bricolage mb-4 ">
-                Truy cập nhanh
-              </h4>
+              <h4 className="text-2xl font-semibold font-bricolage mb-4 ">{t.footer.quickLinks}</h4>
               <ul className="space-y-2 text-[#999] footer-menu relative">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-[#f5b754] relative ps-5 transition duration-300"
-                  >
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-[#f5b754] relative ps-5 transition duration-300"
-                  >
-                    Cars
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-[#f5b754] relative ps-5 transition duration-300"
-                  >
-                    Cars Type
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-[#f5b754] relative ps-5 transition duration-300"
-                  >
-                    FAQ
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-[#f5b754] relative ps-5 transition duration-300"
-                  >
-                    Contact
-                  </a>
-                </li>
+                <li><a href="#" className="hover:text-[#f5b754] relative ps-5 transition duration-300">About</a></li>
+                <li><a href="#" className="hover:text-[#f5b754] relative ps-5 transition duration-300">Cars</a></li>
+                <li><a href="#" className="hover:text-[#f5b754] relative ps-5 transition duration-300">Cars Type</a></li>
+                <li><a href="#" className="hover:text-[#f5b754] relative ps-5 transition duration-300">FAQ</a></li>
+                <li><a href="#" className="hover:text-[#f5b754] relative ps-5 transition duration-300">Contact</a></li>
               </ul>
             </div>
             <div className="flex-1">
-              <h4 className="text-2xl font-semibold font-bricolage mb-4 ">
-                Subscribe
-              </h4>
-              <p className="text-[#999] mb-4 text-sm ">
-                Hãy theo dõi chúng tôi để nhận được những ưu đãi mới nhất.
-              </p>
+              <h4 className="text-2xl font-semibold font-bricolage mb-4 ">{t.footer.subscribe}</h4>
+              <p className="text-[#999] mb-4 text-sm ">{t.footer.subscribeDesc}</p>
               <div className="flex items-center border border-[#f5b754] rounded-full px-4 py-2">
                 <input
                   type="email"
-                  placeholder="Your email address"
+                  placeholder={t.footer.emailPlaceholder}
                   className="bg-transparent outline-none text-white placeholder:text-[#aaa] flex-1"
                 />
                 <button className="bg-[#f5b754] text-black rounded-full w-10 h-10 flex items-center justify-center ">
@@ -261,8 +176,7 @@ function Footer() {
         </div>
         <div className="text-[#999] text-center text-base relative py-6 ">
           <p className="font-bricolage">
-            © 2026 <span className="text-white">Carshops.</span> Mọi quyền được
-            bảo lưu.
+            © 2026 <span className="text-white">Carshops.</span> {t.footer.copyright}
           </p>
         </div>
       </footer>

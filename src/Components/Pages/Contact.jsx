@@ -1,14 +1,17 @@
 import React from "react";
+import { useLanguage } from "../../context/LanguageContext";
 
 function Contact() {
+  const { t } = useLanguage();
+
   return (
     <>
       {/* Banner */}
       <div className="banner-section relative contact-banner flex justify-center items-center">
         <div className="banner-section-content text-center z-10">
-          <h6 className="uppercase text-[#f5b754]">Liên Hệ Ngay</h6>
+          <h6 className="uppercase text-[#f5b754]">{t.contact.bannerSub}</h6>
           <h1 className="text-5xl font-semibold font-bricolage text-white">
-            <span className="text-[#f5b754]">Với</span> Chúng Tôi
+            <span className="text-[#f5b754]">{t.contact.bannerTitle1}</span> {t.contact.bannerTitle2}
           </h1>
         </div>
       </div>
@@ -19,42 +22,28 @@ function Contact() {
           {/* Email */}
           <div className="contact-item group bg-[#222] p-12 text-white rounded-xl">
             <i className="fa-solid fa-envelope text-[#f5b754] text-5xl group-hover:text-black transition"></i>
-            <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">
-              Email
-            </h4>
-            <p className="text-[#999] group-hover:text-black">
-              vietd4220@gmail.com
-            </p>
+            <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">Email</h4>
+            <p className="text-[#999] group-hover:text-black">vietd4220@gmail.com</p>
           </div>
 
           {/* Address */}
           <div className="contact-item group bg-[#222] p-12 text-white rounded-xl">
             <i className="fa-solid fa-location-dot text-[#f5b754] text-5xl group-hover:text-black transition"></i>
-            <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">
-              Địa chỉ
-            </h4>
-            <p className="text-[#999] group-hover:text-black">
-              Yên Hòa, Cầu Giấy, Hà Nội
-            </p>
+            <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">{t.contact.addressLabel}</h4>
+            <p className="text-[#999] group-hover:text-black">Yên Hòa, Cầu Giấy, Hà Nội</p>
           </div>
 
           {/* Time */}
           <div className="contact-item group bg-[#222] p-12 text-white rounded-xl">
             <i className="fa-solid fa-clock text-[#f5b754] text-5xl group-hover:text-black transition"></i>
-            <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">
-              Giờ làm việc
-            </h4>
-            <p className="text-[#999] group-hover:text-black">
-              Thứ 2 - Chủ nhật: 8:00 - 19:00
-            </p>
+            <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">{t.contact.hoursLabel}</h4>
+            <p className="text-[#999] group-hover:text-black">{t.contact.hoursValue}</p>
           </div>
 
           {/* Phone */}
           <div className="contact-item group bg-[#222] p-12 text-white rounded-xl">
             <i className="fa-solid fa-phone text-[#f5b754] text-5xl group-hover:text-black transition"></i>
-            <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">
-              Điện thoại
-            </h4>
+            <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">{t.contact.phoneLabel}</h4>
             <p className="text-[#999] group-hover:text-black">0786783493</p>
           </div>
         </div>
@@ -65,14 +54,14 @@ function Contact() {
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
           <div>
             <h2 className="text-white text-3xl font-semibold mb-8 text-center">
-              Gửi thông tin liên hệ
+              {t.contact.formTitle}
             </h2>
 
             <form className="space-y-5">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
                   type="text"
-                  placeholder="Họ và tên*"
+                  placeholder={t.contact.namePlaceholder}
                   className="bg-[#222] text-white px-6 py-5 rounded-md outline-none"
                 />
                 <input
@@ -85,19 +74,19 @@ function Contact() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <input
                   type="text"
-                  placeholder="Số điện thoại*"
+                  placeholder={t.contact.phonePlaceholder}
                   className="bg-[#222] text-white px-6 py-5 rounded-md outline-none"
                 />
                 <input
                   type="text"
-                  placeholder="Tiêu đề*"
+                  placeholder={t.contact.subjectPlaceholder}
                   className="bg-[#222] text-white px-6 py-5 rounded-md outline-none"
                 />
               </div>
 
               <textarea
                 rows="5"
-                placeholder="Nội dung*"
+                placeholder={t.contact.messagePlaceholder}
                 className="bg-[#222] text-white px-6 py-5 rounded-md w-full outline-none"
               ></textarea>
 
@@ -105,7 +94,7 @@ function Contact() {
                 type="button"
                 className="bg-[#f5b754] hover:bg-[#e2a944] text-black px-14 py-4 text-xl rounded-full transition"
               >
-                Gửi liên hệ
+                {t.contact.sendBtn}
               </button>
             </form>
           </div>
