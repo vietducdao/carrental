@@ -11,9 +11,12 @@ import brand5 from "../../assets/brand-5.png";
 import brand6 from "../../assets/brand-6.png";
 import brand7 from "../../assets/brand-7.png";
 import { useLanguage } from "../../context/LanguageContext";
+import { useSiteSettings } from "../../context/SiteSettingsContext";
 
 function Footer() {
   const { t } = useLanguage();
+  const { settings } = useSiteSettings();
+  const s = settings.socials || {};
 
   return (
     <>
@@ -27,16 +30,18 @@ function Footer() {
           </h2>
           <p className="py-3 ">{t.footer.quickRentDesc}</p>
           <div className="footer-banner-button mt-5 text-black flex flex-col sm:flex-row gap-3">
-            <button className="btn btn-custom bg-[#f5b754] border border-white py-4 px-14 text-lg font-bricolage rounded-full flex items-center hover:translate-y-[-10px] hover:bg-white transition duration-300">
-              Messenger
-              {""}
-              <i className="fa-brands fa-facebook-messenger pr-2 text-2xl "></i>
-            </button>
-
-            <button className="btn btn-custom bg-transparent border border-white py-4 px-14 text-xl font-bricolage rounded-full text-white flex items-center hover:translate-y-[-10px] hover:bg-[#f5b754] hover:text-black transition duration-300">
-              Zalo
-              <i className="ri-arrow-right-up-line text-2xl pl-2"></i>
-            </button>
+            {s.messenger && (
+              <a href={s.messenger} target="_blank" rel="noreferrer" className="btn btn-custom bg-[#f5b754] border border-white py-4 px-14 text-lg font-bricolage rounded-full flex items-center hover:translate-y-[-10px] hover:bg-white transition duration-300">
+                Messenger
+                <i className="fa-brands fa-facebook-messenger pr-2 text-2xl"></i>
+              </a>
+            )}
+            {s.zalo && (
+              <a href={s.zalo} target="_blank" rel="noreferrer" className="btn btn-custom bg-transparent border border-white py-4 px-14 text-xl font-bricolage rounded-full text-white flex items-center hover:translate-y-[-10px] hover:bg-[#f5b754] hover:text-black transition duration-300">
+                Zalo
+                <i className="ri-arrow-right-up-line text-2xl pl-2"></i>
+              </a>
+            )}
           </div>
         </div>
       </div>
@@ -103,7 +108,7 @@ function Footer() {
             </div>
             <div>
               <h5 className="font-semibold font-bricolage">{t.footer.callLabel}</h5>
-              <p>+84 786 783 493</p>
+              <p>{settings.phone || "—"}</p>
             </div>
           </div>
 
@@ -113,7 +118,7 @@ function Footer() {
             </div>
             <div>
               <h5 className="font-semibold font-bricolage">{t.footer.emailLabel}</h5>
-              <p>vietd4220@gmail.com</p>
+              <p className="break-all">{settings.email || "—"}</p>
             </div>
           </div>
 
@@ -123,7 +128,7 @@ function Footer() {
             </div>
             <div>
               <h5 className="font-semibold font-bricolage">{t.footer.addressLabel}</h5>
-              <p>25b, Ngõ 61, Yên Hoà, Hanoi</p>
+              <p>{settings.address || "—"}</p>
             </div>
           </div>
         </div>
@@ -132,20 +137,35 @@ function Footer() {
             <div className="flex-1">
               <h1 className="text-2xl font-bold text-white mb-3">
                 <a href="/" className="text-4xl font-bold logo font-bricolage">
-                  Car<span className="text-[#f5b754]">shops</span>
+                  {settings.companyName ? (
+                    <>{settings.companyName.slice(0, -5)}<span className="text-[#f5b754]">{settings.companyName.slice(-5)}</span></>
+                  ) : (
+                    <>Car<span className="text-[#f5b754]">shops</span></>
+                  )}
                 </a>
               </h1>
-              <p className="text-[#999] mb-6 md:w-[90%] w-full">{t.footer.tagline}</p>
+              <p className="text-[#999] mb-6 md:w-[90%] w-full">{settings.footerTagline || t.footer.tagline}</p>
               <div className="flex gap-4">
-                <a href="#" className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300">
-                  <i className="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="#" className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300">
-                  <i className="fa-brands fa-x-twitter"></i>
-                </a>
-                <a href="#" className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300">
-                  <i className="fa-brands fa-tiktok"></i>
-                </a>
+                {s.facebook && (
+                  <a href={s.facebook} target="_blank" rel="noreferrer" className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300">
+                    <i className="fa-brands fa-facebook-f"></i>
+                  </a>
+                )}
+                {s.twitter && (
+                  <a href={s.twitter} target="_blank" rel="noreferrer" className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300">
+                    <i className="fa-brands fa-x-twitter"></i>
+                  </a>
+                )}
+                {s.instagram && (
+                  <a href={s.instagram} target="_blank" rel="noreferrer" className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300">
+                    <i className="fa-brands fa-instagram"></i>
+                  </a>
+                )}
+                {s.tiktok && (
+                  <a href={s.tiktok} target="_blank" rel="noreferrer" className="border border-[#f5b754] text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-[#f5b754] hover:text-black transition-colors duration-300">
+                    <i className="fa-brands fa-tiktok"></i>
+                  </a>
+                )}
               </div>
             </div>
             <div className="flex-1">
@@ -176,7 +196,7 @@ function Footer() {
         </div>
         <div className="text-[#999] text-center text-base relative py-6 ">
           <p className="font-bricolage">
-            © 2026 <span className="text-white">Carshops.</span> {t.footer.copyright}
+            © {new Date().getFullYear()} <span className="text-white">{settings.companyName || "Carshops"}.</span> {settings.copyright || t.footer.copyright}
           </p>
         </div>
       </footer>

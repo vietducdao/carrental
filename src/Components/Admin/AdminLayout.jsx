@@ -1,12 +1,13 @@
 import { Outlet, useLocation } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
-import { User } from "lucide-react";
 import { useLanguage } from "../../context/LanguageContext";
+import { useAuth } from "../../context/AuthContext";
 
 const AdminLayout = () => {
   const location = useLocation();
   const { lang, switchLang, t } = useLanguage();
-  const userData = JSON.parse(localStorage.getItem("user") || "{}");
+  const { user } = useAuth();
+  const userData = user || {};
 
   const getPageTitle = () => {
     const path = location.pathname;

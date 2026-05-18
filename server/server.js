@@ -14,6 +14,12 @@ import voucherRoutes from "./routes/voucher.routes.js";
 import transactionRoutes from "./routes/transaction.routes.js";
 import reportRoutes from "./routes/report.routes.js";
 import chatRoutes from "./routes/chat.routes.js";
+import blogRoutes from "./routes/blog.routes.js";
+import testimonialRoutes from "./routes/testimonial.routes.js";
+import teamRoutes from "./routes/team.routes.js";
+import serviceRoutes from "./routes/service.routes.js";
+import siteSettingRoutes from "./routes/siteSetting.routes.js";
+import { activeProvider } from "./services/claude.service.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -37,6 +43,11 @@ app.use("/api/vouchers", voucherRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/blog", blogRoutes);
+app.use("/api/testimonials", testimonialRoutes);
+app.use("/api/team", teamRoutes);
+app.use("/api/services", serviceRoutes);
+app.use("/api/site-settings", siteSettingRoutes);
 
 // Health check
 app.get("/api/health", (_, res) => res.json({ status: "ok" }));
@@ -49,5 +60,12 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 connectDB().then(() => {
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Chatbot AI provider: ${activeProvider}`);
+    if (activeProvider === "rule-based") {
+      console.log("  → Set GEMINI_API_KEY (free) or ANTHROPIC_API_KEY in .env to enable AI");
+      console.log("  → Free Gemini key: https://aistudio.google.com/apikey");
+    }
+  });
 });

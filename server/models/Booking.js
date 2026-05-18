@@ -10,6 +10,7 @@ const bookingSchema = new mongoose.Schema(
     phone: { type: String, default: "" },
     pickupDate: { type: Date, required: true },
     returnDate: { type: Date, required: true },
+    sameDayReturn: { type: Boolean, default: false },
     pickupLocation: { type: String, default: "" },
     dropoffLocation: { type: String, default: "" },
     status: {

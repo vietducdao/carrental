@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useCart } from "../../context/CartContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { User, LogOut, History, ShoppingCart, Shield } from "lucide-react";
 
@@ -8,6 +9,7 @@ function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
+  const { cartItems } = useCart();
   const { lang, switchLang, t } = useLanguage();
   const navigate = useNavigate();
 
@@ -125,8 +127,13 @@ function Nav() {
               <Link to="/booking-history" title={t.nav.bookingHistory} className="w-9 h-9 rounded-full bg-[#1a1a1a] border border-gray-700 flex items-center justify-center text-gray-400 hover:text-[#f5b754] hover:border-[#f5b754] transition">
                 <History size={16} />
               </Link>
-              <Link to="/cart" title={t.nav.cart} className="w-9 h-9 rounded-full bg-[#1a1a1a] border border-gray-700 flex items-center justify-center text-gray-400 hover:text-[#f5b754] hover:border-[#f5b754] transition">
+              <Link to="/cart" title={t.nav.cart} className="relative w-9 h-9 rounded-full bg-[#1a1a1a] border border-gray-700 flex items-center justify-center text-gray-400 hover:text-[#f5b754] hover:border-[#f5b754] transition">
                 <ShoppingCart size={16} />
+                {cartItems.length > 0 && (
+                  <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-[#f5b754] text-black text-[10px] font-bold flex items-center justify-center">
+                    {cartItems.length}
+                  </span>
+                )}
               </Link>
               <Link to="/profile" className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#1a1a1a] border border-gray-700 hover:border-[#f5b754] transition text-sm text-white">
                 <div className="w-6 h-6 rounded-full bg-[#f5b754] flex items-center justify-center text-black font-bold text-xs overflow-hidden">

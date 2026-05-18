@@ -5,6 +5,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import { ChatProvider } from "./context/ChatContext";
 import { LanguageProvider } from "./context/LanguageContext";
+import { SiteSettingsProvider } from "./context/SiteSettingsContext";
 
 import Nav from "./Components/Nav/Nav";
 import Footer from "./Components/Footer/Footer";
@@ -41,72 +42,89 @@ import ManageVouchersPage from "./Components/Admin/ManageVouchersPage";
 import FinancialPage from "./Components/Admin/FinancialPage";
 import ReportsPage from "./Components/Admin/ReportsPage";
 import AdminChatPage from "./Components/Admin/AdminChatPage";
+import ManageBlogPage from "./Components/Admin/ManageBlogPage";
+import ManageTestimonialsPage from "./Components/Admin/ManageTestimonialsPage";
+import ManageTeamPage from "./Components/Admin/ManageTeamPage";
+import ManageServicesPage from "./Components/Admin/ManageServicesPage";
+import SiteSettingsPage from "./Components/Admin/SiteSettingsPage";
 import Promotions from "./Components/Pages/Promotions";
 
-// Customer layout: Nav + Footer + Chatbot
-const CustomerLayout = () => (
-  <>
-    <Nav />
+// Customer shell: separate AuthProvider (scope="user") + Cart + Chat + SiteSettings + layout
+const CustomerShell = () => (
+  <AuthProvider scope="user">
+    <SiteSettingsProvider>
+      <CartProvider>
+        <ChatProvider>
+          <Nav />
+          <Outlet />
+          <Footer />
+          <ChatbotWidget />
+        </ChatProvider>
+      </CartProvider>
+    </SiteSettingsProvider>
+  </AuthProvider>
+);
+
+// Admin shell: separate AuthProvider (scope="admin"), no cart/chat
+const AdminShell = () => (
+  <AuthProvider scope="admin">
     <Outlet />
-    <Footer />
-    <ChatbotWidget />
-  </>
+  </AuthProvider>
 );
 
 function App() {
   return (
     <LanguageProvider>
-    <AuthProvider>
-      <CartProvider>
-        <ChatProvider>
-          <Router>
-            <ScrollToTop />
-            <Routes>
-              {/* Public customer routes */}
-              <Route element={<CustomerLayout />}>
-                <Route path="/" element={<Index />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/cars" element={<Cars />} />
-                <Route path="/car/:id" element={<CarsDetails />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/teams" element={<Teams />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/promotions" element={<Promotions />} />
+      <Router>
+        <ScrollToTop />
+        <Routes>
+          {/* Public customer routes — scoped user session */}
+          <Route element={<CustomerShell />}>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/cars" element={<Cars />} />
+            <Route path="/car/:id" element={<CarsDetails />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/teams" element={<Teams />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/promotions" element={<Promotions />} />
 
-                {/* Protected customer routes */}
-                <Route element={<RequireAuth />}>
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/booking-history" element={<BookingHistory />} />
-                  <Route path="/cart" element={<Cart />} />
-                  <Route path="/payment/:bookingId" element={<PaymentPage />} />
-                </Route>
+            {/* Protected customer routes */}
+            <Route element={<RequireAuth />}>
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/booking-history" element={<BookingHistory />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/payment/:bookingId" element={<PaymentPage />} />
+            </Route>
+          </Route>
+
+          {/* Admin routes — scoped admin session */}
+          <Route element={<AdminShell />}>
+            <Route path="/admin/login" element={<AdminLogin />} />
+            <Route element={<RequireAdminAuth />}>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AddCarPage />} />
+                <Route path="manage-cars" element={<ManageCarPage />} />
+                <Route path="bookings" element={<BookingPage />} />
+                <Route path="users" element={<ManageUsersPage />} />
+                <Route path="categories" element={<ManageCategoriesPage />} />
+                <Route path="vouchers" element={<ManageVouchersPage />} />
+                <Route path="financial" element={<FinancialPage />} />
+                <Route path="reports" element={<ReportsPage />} />
+                <Route path="chat" element={<AdminChatPage />} />
+                <Route path="blog" element={<ManageBlogPage />} />
+                <Route path="testimonials" element={<ManageTestimonialsPage />} />
+                <Route path="team" element={<ManageTeamPage />} />
+                <Route path="services" element={<ManageServicesPage />} />
+                <Route path="settings" element={<SiteSettingsPage />} />
               </Route>
-
-              {/* Admin login (standalone, no layout) */}
-              <Route path="/admin/login" element={<AdminLogin />} />
-
-              {/* Admin routes — require admin role */}
-              <Route element={<RequireAdminAuth />}>
-                <Route path="/admin" element={<AdminLayout />}>
-                  <Route index element={<AddCarPage />} />
-                  <Route path="manage-cars" element={<ManageCarPage />} />
-                  <Route path="bookings" element={<BookingPage />} />
-                  <Route path="users" element={<ManageUsersPage />} />
-                  <Route path="categories" element={<ManageCategoriesPage />} />
-                  <Route path="vouchers" element={<ManageVouchersPage />} />
-                  <Route path="financial" element={<FinancialPage />} />
-                  <Route path="reports" element={<ReportsPage />} />
-                  <Route path="chat" element={<AdminChatPage />} />
-                </Route>
-              </Route>
-            </Routes>
-          </Router>
-        </ChatProvider>
-      </CartProvider>
-    </AuthProvider>
+            </Route>
+          </Route>
+        </Routes>
+      </Router>
     </LanguageProvider>
   );
 }

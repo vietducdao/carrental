@@ -63,16 +63,18 @@ export const getBookingById = async (req, res) => {
 
 export const createBooking = async (req, res) => {
   try {
-    const { carId, pickupDate, returnDate, customer, email, phone, address, notes, voucherId, pickupLocation, dropoffLocation } = req.body;
+    const { carId, pickupDate, returnDate, sameDayReturn, customer, email, phone, address, notes, voucherId, pickupLocation, dropoffLocation } = req.body;
     const car = await Car.findById(carId);
     if (!car) return res.status(404).json({ message: "Không tìm thấy xe" });
     if (car.status !== "available") return res.status(400).json({ message: "Xe hiện không có sẵn" });
 
     const pickup = new Date(pickupDate);
     const returnD = new Date(returnDate);
-    if (returnD <= pickup) return res.status(400).json({ message: "Ngày trả phải sau ngày nhận" });
+    if (!sameDayReturn && returnD <= pickup) {
+      return res.status(400).json({ message: "Ngày trả phải sau ngày nhận" });
+    }
 
-    const days = Math.ceil((returnD - pickup) / (1000 * 60 * 60 * 24));
+    const days = sameDayReturn ? 0.5 : Math.ceil((returnD - pickup) / (1000 * 60 * 60 * 24));
     const subtotal = days * car.dailyRate;
 
     let discount = 0;
@@ -103,6 +105,7 @@ export const createBooking = async (req, res) => {
       dropoffLocation: dropoffLocation || "",
       pickupDate: pickup,
       returnDate: returnD,
+      sameDayReturn: !!sameDayReturn,
       amount,
       discount,
       voucher: voucherRef,

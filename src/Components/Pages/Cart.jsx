@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Car, Tag, Trash2, MapPin, StickyNote } from "lucide-react";
+import { Car, Tag, Trash2, MapPin, StickyNote, Plus } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
 import { useLanguage } from "../../context/LanguageContext";
 import api, { BASE_URL } from "../../utils/api";
 
 const Cart = () => {
-  const { cartItem, appliedVoucher, subtotal, discount, total, clearCart, applyVoucher } = useCart();
+  const { cartItems, appliedVoucher, subtotal, discount, total, removeFromCart, clearCart, applyVoucher } = useCart();
   const { user } = useAuth();
   const { t } = useLanguage();
   const [voucherCode, setVoucherCode] = useState("");
@@ -20,7 +20,16 @@ const Cart = () => {
   const [notes, setNotes] = useState("");
   const navigate = useNavigate();
 
-  if (!cartItem) return (
+  // Pre-fill shared trip details from the first item that has them
+  useEffect(() => {
+    if (!cartItems.length) return;
+    const first = cartItems.find((i) => i.pickupLocation) || cartItems[0];
+    if (first?.pickupLocation && !pickupLocation) setPickupLocation(first.pickupLocation);
+    if (first?.dropoffLocation && !dropoffLocation) setDropoffLocation(first.dropoffLocation);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartItems.length]);
+
+  if (!cartItems.length) return (
     <div className="min-h-screen bg-[#121212] flex items-center justify-center py-24">
       <div className="text-center">
         <Car className="mx-auto text-gray-600 mb-4" size={48} />
@@ -33,8 +42,11 @@ const Cart = () => {
   );
 
   const fmt = (d) => new Date(d).toLocaleDateString("vi-VN");
-  const { car, pickupDate, returnDate, days } = cartItem;
-  const imgSrc = car.image ? `${BASE_URL}/uploads/${car.image}` : null;
+
+  const handleRemove = (id) => {
+    removeFromCart(id);
+    toast.info(t.cart.itemRemoved || "Đã xóa xe khỏi giỏ hàng");
+  };
 
   const handleVoucher = async () => {
     if (!voucherCode.trim()) return;
@@ -49,39 +61,102 @@ const Cart = () => {
 
   const handleConfirm = async () => {
     setBooking(true);
+    const createdIds = [];
     try {
-      const res = await api.post("/api/bookings", {
-        carId: car._id, pickupDate, returnDate,
-        customer: user.name, email: user.email, phone: user.phone,
-        address: user.address || {},
-        pickupLocation, dropoffLocation, notes,
-        ...(appliedVoucher ? { voucherId: appliedVoucher.voucher._id } : {}),
-      });
-      const bookingId = res.data.booking._id;
+      // Create one booking per cart item. Voucher (if any) only applied to first booking.
+      for (let i = 0; i < cartItems.length; i++) {
+        const item = cartItems[i];
+        const res = await api.post("/api/bookings", {
+          carId: item.car._id,
+          pickupDate: item.pickupDate,
+          returnDate: item.returnDate,
+          sameDayReturn: item.sameDayReturn,
+          customer: user.name,
+          email: user.email,
+          phone: user.phone,
+          address: user.address || {},
+          pickupLocation,
+          dropoffLocation,
+          notes,
+          ...(i === 0 && appliedVoucher ? { voucherId: appliedVoucher.voucher._id } : {}),
+        });
+        createdIds.push(res.data.booking._id);
+      }
       clearCart();
-      navigate(`/payment/${bookingId}`);
-    } catch (err) { toast.error(err.response?.data?.message || t.cart.bookingError); }
-    finally { setBooking(false); }
+      // Single item → straight to payment. Multiple → booking history.
+      if (createdIds.length === 1) navigate(`/payment/${createdIds[0]}`);
+      else {
+        toast.success(t.cart.bookingsCreated || `Đã tạo ${createdIds.length} đơn đặt xe`);
+        navigate("/booking-history");
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || t.cart.bookingError);
+    } finally {
+      setBooking(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-[#121212] py-24 px-4">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold text-white mb-8">{t.cart.title}</h1>
-        <div className="bg-[#1a1a1a] rounded-2xl border border-gray-800 p-6 mb-4">
-          <div className="flex gap-4">
-            {imgSrc && <img src={imgSrc} alt="car" className="w-28 h-20 object-cover rounded-xl flex-shrink-0" />}
-            <div>
-              <h2 className="text-white font-bold text-xl">{car.make} {car.model}</h2>
-              <p className="text-gray-400 text-sm mt-1">{car.year} • {car.category} • {car.seats} chỗ</p>
-              <p className="text-[#f5b754] font-semibold mt-1">${car.dailyRate}{t.cart.perDay}</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-gray-800 text-sm">
-            <div><span className="text-gray-500">{t.cart.pickupDate}</span><p className="text-white">{fmt(pickupDate)}</p></div>
-            <div><span className="text-gray-500">{t.cart.returnDate}</span><p className="text-white">{fmt(returnDate)}</p></div>
-            <div><span className="text-gray-500">{t.cart.numDays}</span><p className="text-white">{days} {t.cart.days}</p></div>
-          </div>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold text-white">{t.cart.title}</h1>
+          <button
+            onClick={() => navigate("/cars")}
+            className="flex items-center gap-1.5 text-sm text-[#f5b754] hover:underline"
+          >
+            <Plus size={16} />{t.cart.continueShopping || "Thêm xe khác"}
+          </button>
+        </div>
+
+        {/* Cart Items */}
+        <div className="space-y-3 mb-4">
+          {cartItems.map((item) => {
+            const imgSrc = item.car.image ? `${BASE_URL}/uploads/${item.car.image}` : null;
+            const lineTotal = item.days * item.car.dailyRate;
+            return (
+              <div key={item.id} className="bg-[#1a1a1a] rounded-2xl border border-gray-800 p-5 relative">
+                <button
+                  onClick={() => handleRemove(item.id)}
+                  className="absolute top-3 right-3 p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition"
+                  title={t.cart.remove || "Xóa"}
+                >
+                  <Trash2 size={16} />
+                </button>
+                <div className="flex gap-4 pr-10">
+                  {imgSrc && <img src={imgSrc} alt="car" className="w-24 h-18 object-cover rounded-xl flex-shrink-0" />}
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-white font-bold text-lg truncate">{item.car.make} {item.car.model}</h2>
+                    <p className="text-gray-400 text-xs mt-0.5">{item.car.year} • {item.car.category} • {item.car.seats} {t.cart.seats || "chỗ"}</p>
+                    <p className="text-[#f5b754] font-semibold text-sm mt-1">${item.car.dailyRate}{t.cart.perDay}</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-3 mt-4 pt-4 border-t border-gray-800 text-xs">
+                  <div>
+                    <span className="text-gray-500 uppercase tracking-wider text-[10px]">{t.cart.pickupDate}</span>
+                    <p className="text-white mt-0.5">{fmt(item.pickupDate)}</p>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 uppercase tracking-wider text-[10px]">{t.cart.returnDate}</span>
+                    <p className="text-white mt-0.5">{fmt(item.returnDate)}</p>
+                  </div>
+                  <div>
+                    <span className="text-gray-500 uppercase tracking-wider text-[10px]">{t.cart.numDays}</span>
+                    <p className="text-white mt-0.5">
+                      {item.days} {t.cart.days}
+                      {item.sameDayReturn && (
+                        <span className="ml-1.5 text-[9px] px-1.5 py-0.5 rounded-full bg-[#f5b754]/20 text-[#f5b754] font-semibold">{t.carDetails.halfPrice || "1/2 giá"}</span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center mt-3 pt-3 border-t border-gray-800/60 text-sm">
+                  <span className="text-gray-400">{item.days} × ${item.car.dailyRate}</span>
+                  <span className="text-white font-bold">${lineTotal.toFixed(2)}</span>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
         {/* Voucher */}
@@ -122,7 +197,7 @@ const Cart = () => {
           )}
         </div>
 
-        {/* Trip details */}
+        {/* Trip details (shared across all items) */}
         <div className="bg-[#1a1a1a] rounded-2xl border border-gray-800 p-5 mb-4 space-y-3">
           <h3 className="text-sm font-semibold text-white flex items-center gap-2">
             <MapPin size={15} className="text-[#f5b754]" />{t.cart.tripDetails}
@@ -165,7 +240,7 @@ const Cart = () => {
         <div className="bg-[#1a1a1a] rounded-2xl border border-gray-800 p-5 mb-6">
           <div className="space-y-2 text-sm">
             <div className="flex justify-between text-gray-400">
-              <span>{t.cart.subtotal} ({days} {t.cart.days} × ${car.dailyRate})</span>
+              <span>{t.cart.subtotal} ({cartItems.length} {t.cart.itemsLabel || "xe"})</span>
               <span>${subtotal.toFixed(2)}</span>
             </div>
             {discount > 0 && (

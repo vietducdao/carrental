@@ -1,8 +1,10 @@
 import React from "react";
 import { useLanguage } from "../../context/LanguageContext";
+import { useSiteSettings } from "../../context/SiteSettingsContext";
 
 function Contact() {
   const { t } = useLanguage();
+  const { settings } = useSiteSettings();
 
   return (
     <>
@@ -23,28 +25,28 @@ function Contact() {
           <div className="contact-item group bg-[#222] p-12 text-white rounded-xl">
             <i className="fa-solid fa-envelope text-[#f5b754] text-5xl group-hover:text-black transition"></i>
             <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">Email</h4>
-            <p className="text-[#999] group-hover:text-black">vietd4220@gmail.com</p>
+            <p className="text-[#999] group-hover:text-black break-all">{settings.email || "—"}</p>
           </div>
 
           {/* Address */}
           <div className="contact-item group bg-[#222] p-12 text-white rounded-xl">
             <i className="fa-solid fa-location-dot text-[#f5b754] text-5xl group-hover:text-black transition"></i>
             <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">{t.contact.addressLabel}</h4>
-            <p className="text-[#999] group-hover:text-black">Yên Hòa, Cầu Giấy, Hà Nội</p>
+            <p className="text-[#999] group-hover:text-black">{settings.address || "—"}</p>
           </div>
 
           {/* Time */}
           <div className="contact-item group bg-[#222] p-12 text-white rounded-xl">
             <i className="fa-solid fa-clock text-[#f5b754] text-5xl group-hover:text-black transition"></i>
             <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">{t.contact.hoursLabel}</h4>
-            <p className="text-[#999] group-hover:text-black">{t.contact.hoursValue}</p>
+            <p className="text-[#999] group-hover:text-black">{settings.hours || t.contact.hoursValue}</p>
           </div>
 
           {/* Phone */}
           <div className="contact-item group bg-[#222] p-12 text-white rounded-xl">
             <i className="fa-solid fa-phone text-[#f5b754] text-5xl group-hover:text-black transition"></i>
             <h4 className="text-2xl xl:text-4xl mt-8 mb-2 font-semibold">{t.contact.phoneLabel}</h4>
-            <p className="text-[#999] group-hover:text-black">0786783493</p>
+            <p className="text-[#999] group-hover:text-black">{settings.phone || "—"}</p>
           </div>
         </div>
       </div>
@@ -100,15 +102,17 @@ function Contact() {
           </div>
 
           {/* Map */}
-          <div className="w-full h-[400px] rounded-2xl overflow-hidden">
-            <iframe
-              className="w-full h-full"
-              title="Map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2050.397779567293!2d105.79532313441108!3d21.021429572551195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab5b0270ba8d%3A0xec00219baf0eefff!2zxJDDrG5oIEjhuqEgWcOqbiBRdXnhur90!5e0!3m2!1svi!2s!4v1774889445430!5m2!1svi!2s"
-              allowFullScreen
-              loading="lazy"
-            ></iframe>
-          </div>
+          {settings.mapEmbedSrc && (
+            <div className="w-full h-[400px] rounded-2xl overflow-hidden">
+              <iframe
+                className="w-full h-full"
+                title="Map"
+                src={settings.mapEmbedSrc}
+                allowFullScreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          )}
         </div>
       </div>
     </>

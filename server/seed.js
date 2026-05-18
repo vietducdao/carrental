@@ -10,6 +10,11 @@ import Car from "./models/Car.js";
 import Voucher from "./models/Voucher.js";
 import Booking from "./models/Booking.js";
 import Transaction from "./models/Transaction.js";
+import BlogPost from "./models/BlogPost.js";
+import Testimonial from "./models/Testimonial.js";
+import TeamMember from "./models/TeamMember.js";
+import Service from "./models/Service.js";
+import SiteSetting from "./models/SiteSetting.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const uploadsDir = path.join(__dirname, "uploads");
@@ -56,6 +61,11 @@ const main = async () => {
     Voucher.deleteMany({}),
     Booking.deleteMany({}),
     Transaction.deleteMany({}),
+    BlogPost.deleteMany({}),
+    Testimonial.deleteMany({}),
+    TeamMember.deleteMany({}),
+    Service.deleteMany({}),
+    SiteSetting.deleteMany({}),
   ]);
 
   // ─── Categories ────────────────────────────────────────────────────
@@ -515,6 +525,222 @@ const main = async () => {
     await makeTransaction({ booking: failedBooking, status: "failed", method: "card" });
   }
 
+  // ─── Site Settings (singleton) ─────────────────────────────────────
+  log("Seeding site settings...");
+  await SiteSetting.create({
+    companyName: "Carshops",
+    email: "contact@carshops.vn",
+    phone: "+84 786 783 493",
+    address: "25b, Ngõ 61, Yên Hòa, Cầu Giấy, Hà Nội",
+    hours: "Thứ 2 - Chủ nhật, 24/7",
+    heroPremium: "Premium Car Rental",
+    heroTitle: "Carshops",
+    heroSubtitle: "Thuê xe sang trọng - Trải nghiệm đẳng cấp",
+    heroDesc: "Hệ thống cho thuê xe đa dạng với hàng trăm mẫu xe từ phổ thông đến hạng sang, hỗ trợ giao xe tận nơi 24/7.",
+    aboutTitle1: "Đối tác đáng tin cậy",
+    aboutTitle2: "cho mọi chuyến đi",
+    aboutDesc: "Chúng tôi cung cấp dịch vụ cho thuê xe linh hoạt với khả năng hủy hoặc thay đổi trước thời điểm nhận xe. Hơn 500 đầu xe các phân khúc, sẵn sàng phục vụ tại Hà Nội, Đà Nẵng, TP.HCM và Cần Thơ.",
+    aboutFeature1: "Đa dạng xe thể thao và xe hạng sang",
+    aboutFeature2: "Giá cạnh tranh cho mọi phân khúc",
+    footerTagline: "Carshops - Cho thuê xe tự lái và xe có tài uy tín tại Việt Nam. Cam kết xe sạch sẽ, đầy đủ giấy tờ và bảo hiểm.",
+    copyright: "All rights reserved.",
+    socials: {
+      facebook: "https://facebook.com/carshops",
+      twitter: "https://twitter.com/carshops",
+      instagram: "https://instagram.com/carshops",
+      tiktok: "https://tiktok.com/@carshops",
+      messenger: "https://m.me/carshops",
+      zalo: "https://zalo.me/carshops",
+    },
+    mapEmbedSrc:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2050.397779567293!2d105.79532313441108!3d21.021429572551195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab5b0270ba8d%3A0xec00219baf0eefff!2zxJDDrG5oIEjhuqEgWcOqbiBRdXnhur90!5e0!3m2!1svi!2s!4v1774889445430!5m2!1svi!2s",
+  });
+  ok(`✔ 1 site settings document`);
+
+  // ─── Services ──────────────────────────────────────────────────────
+  log("Seeding services...");
+  const serviceDefs = [
+    { title: "Thuê xe theo ngày", icon: "📅", order: 1, showOnHome: true,
+      description: "Cho thuê xe theo ngày linh hoạt, phù hợp các chuyến công tác ngắn hoặc kỳ nghỉ cuối tuần. Giao xe tận nơi, thủ tục nhanh gọn." },
+    { title: "Thuê xe theo tháng", icon: "🗓️", order: 2, showOnHome: true,
+      description: "Dịch vụ thuê xe dài hạn từ 1 tháng trở lên với giá ưu đãi đặc biệt. Phục vụ cá nhân và doanh nghiệp, đầy đủ hóa đơn VAT." },
+    { title: "Cho thuê xe cưới", icon: "💍", order: 3, showOnHome: true,
+      description: "Xe cưới sang trọng với đa dạng dòng xe Mercedes, BMW, Audi. Trang trí xe cưới chuyên nghiệp theo yêu cầu khách hàng." },
+    { title: "Thuê xe có tài xế", icon: "🧑‍✈️", order: 4, showOnHome: false,
+      description: "Tài xế kinh nghiệm, am hiểu đường sá, đưa đón chuyên nghiệp cho khách công tác, du lịch hoặc sự kiện." },
+    { title: "Đưa đón sân bay", icon: "✈️", order: 5, showOnHome: false,
+      description: "Dịch vụ đưa đón sân bay 24/7, xe chờ sẵn, tài xế hỗ trợ hành lý. Bảng giá cố định, không phát sinh." },
+    { title: "Thuê xe du lịch", icon: "🏝️", order: 6, showOnHome: false,
+      description: "Tour xe du lịch trọn gói theo lịch trình cá nhân hóa: Hà Nội - Hạ Long, Đà Nẵng - Hội An, Sài Gòn - Vũng Tàu." },
+  ];
+  await Service.insertMany(serviceDefs);
+  ok(`✔ ${serviceDefs.length} services (${serviceDefs.filter((s) => s.showOnHome).length} on home)`);
+
+  // ─── Testimonials ──────────────────────────────────────────────────
+  log("Seeding testimonials...");
+  const testimonialDefs = [
+    {
+      name: "Nguyễn Văn An", role: "Doanh nhân", rating: 5, order: 1, isActive: true,
+      review: "Dịch vụ tuyệt vời, xe mới và sạch sẽ. Đặt xe online rất tiện, giao xe đúng hẹn. Tôi đã thuê xe nhiều lần và sẽ tiếp tục ủng hộ.",
+    },
+    {
+      name: "Trần Thị Bình", role: "Khách du lịch", rating: 5, order: 2, isActive: true,
+      review: "Tôi rất hài lòng với chuyến đi Đà Lạt cùng gia đình. Xe Hyundai Tucson rộng rãi, lái êm. Nhân viên hỗ trợ nhiệt tình từ A đến Z.",
+    },
+    {
+      name: "Lê Hoàng Cường", role: "Kỹ sư phần mềm", rating: 5, order: 3, isActive: true,
+      review: "Thuê Tesla Model 3 lần đầu - trải nghiệm rất tốt. Xe sạc đầy 100% khi nhận, giá cả minh bạch. Đặc biệt thích app theo dõi trạng thái booking.",
+    },
+    {
+      name: "Phạm Mỹ Dung", role: "Cô dâu", rating: 5, order: 4, isActive: true,
+      review: "Đã thuê Mercedes S-Class làm xe cưới. Xe được trang trí đúng yêu cầu, tài xế lịch sự. Đám cưới của tôi thật trọn vẹn nhờ Carshops.",
+    },
+    {
+      name: "Hoàng Anh Tuấn", role: "Nhà thiết kế", rating: 4, order: 5, isActive: true,
+      review: "Xe đẹp, giá hợp lý. Có một lần gặp chút trục trặc với điều hòa nhưng được hỗ trợ đổi xe khác ngay trong 30 phút. Đáng tin cậy.",
+    },
+    {
+      name: "Vũ Thị Phương", role: "Giáo viên", rating: 5, order: 6, isActive: true,
+      review: "Thuê xe theo tháng để đi dạy ở Hải Phòng. Giá cực kỳ ưu đãi so với taxi. Bảo dưỡng định kỳ miễn phí là điểm cộng lớn.",
+    },
+  ];
+  await Testimonial.insertMany(testimonialDefs);
+  ok(`✔ ${testimonialDefs.length} testimonials`);
+
+  // ─── Team Members ──────────────────────────────────────────────────
+  log("Seeding team members...");
+  const teamImages = [
+    { url: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&q=80&auto=format&fit=crop", slug: "team-ceo" },
+    { url: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80&auto=format&fit=crop", slug: "team-cmo" },
+    { url: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=800&q=80&auto=format&fit=crop", slug: "team-cto" },
+    { url: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&q=80&auto=format&fit=crop", slug: "team-ops" },
+    { url: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&q=80&auto=format&fit=crop", slug: "team-mech" },
+  ];
+  const teamImageFiles = [];
+  for (const t of teamImages) {
+    try { teamImageFiles.push(await downloadImage(t.url, t.slug)); }
+    catch { teamImageFiles.push(t.url); }
+  }
+
+  const teamDefs = [
+    {
+      name: "Đào Việt Đức", role: "Founder & CEO", department: "Ban điều hành",
+      email: "duc.dao@carshops.vn", image: teamImageFiles[0],
+      bio: "Hơn 10 năm kinh nghiệm trong ngành cho thuê xe và logistics. Sáng lập Carshops năm 2018 với tầm nhìn xây dựng dịch vụ thuê xe minh bạch, chuyên nghiệp tại Việt Nam.",
+      education: "Thạc sĩ Quản trị Kinh doanh - Đại học Ngoại Thương Hà Nội (2015)\nCử nhân Kinh tế - Đại học Kinh tế Quốc dân (2012)",
+      achievement: "Top 10 Startup tiềm năng Việt Nam 2022\nGiải thưởng Doanh nhân trẻ xuất sắc 2023",
+      socials: { facebook: "https://facebook.com/", twitter: "https://twitter.com/", instagram: "https://instagram.com/", tiktok: "" },
+      isFeatured: true, order: 1, isActive: true,
+    },
+    {
+      name: "Nguyễn Thị Hoa", role: "Giám đốc Marketing", department: "Marketing",
+      email: "hoa.nguyen@carshops.vn", image: teamImageFiles[1],
+      bio: "Chuyên gia marketing với hơn 8 năm kinh nghiệm tại các thương hiệu ô tô lớn. Phụ trách chiến lược thương hiệu và phát triển khách hàng.",
+      education: "Cử nhân Marketing - Đại học RMIT (2016)",
+      achievement: "Best Digital Campaign 2023 - Vietnam Marketing Awards",
+      socials: { facebook: "https://facebook.com/", instagram: "https://instagram.com/" },
+      isFeatured: false, order: 2, isActive: true,
+    },
+    {
+      name: "Trần Minh Khôi", role: "Giám đốc Công nghệ", department: "Kỹ thuật",
+      email: "khoi.tran@carshops.vn", image: teamImageFiles[2],
+      bio: "Kỹ sư phần mềm với background về fintech. Xây dựng nền tảng đặt xe online và hệ thống quản lý vận hành của Carshops.",
+      education: "Thạc sĩ Khoa học Máy tính - National University of Singapore",
+      achievement: "5 năm kinh nghiệm dẫn dắt team kỹ thuật tại các startup unicorn Đông Nam Á",
+      socials: { twitter: "https://twitter.com/", tiktok: "" },
+      isFeatured: false, order: 3, isActive: true,
+    },
+    {
+      name: "Lê Thanh Hương", role: "Trưởng phòng Vận hành", department: "Vận hành",
+      email: "huong.le@carshops.vn", image: teamImageFiles[3],
+      bio: "Đảm bảo trải nghiệm khách hàng từ lúc đặt xe đến khi trả xe luôn mượt mà. Quản lý đội ngũ chăm sóc khách hàng 24/7.",
+      education: "Cử nhân Quản trị Dịch vụ - Đại học Kinh tế TP.HCM",
+      achievement: "Tỉ lệ hài lòng khách hàng đạt 98% năm 2024",
+      socials: { facebook: "https://facebook.com/" },
+      isFeatured: false, order: 4, isActive: true,
+    },
+    {
+      name: "Phạm Quang Huy", role: "Trưởng phòng Kỹ thuật xe", department: "Bảo dưỡng",
+      email: "huy.pham@carshops.vn", image: teamImageFiles[4],
+      bio: "20 năm kinh nghiệm kỹ thuật ô tô, từng làm việc tại các hãng xe lớn. Đảm bảo 100% xe của Carshops trong tình trạng tốt nhất trước khi giao.",
+      education: "Kỹ sư Cơ khí Động lực - Đại học Bách Khoa Hà Nội",
+      achievement: "Chứng chỉ kỹ thuật viên cấp cao - Mercedes-Benz Vietnam",
+      socials: { facebook: "https://facebook.com/" },
+      isFeatured: false, order: 5, isActive: true,
+    },
+  ];
+  await TeamMember.insertMany(teamDefs);
+  ok(`✔ ${teamDefs.length} team members (1 featured)`);
+
+  // ─── Blog Posts ────────────────────────────────────────────────────
+  log("Seeding blog posts...");
+  const blogImages = [
+    { url: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&q=80&auto=format&fit=crop", slug: "blog-tips" },
+    { url: "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1200&q=80&auto=format&fit=crop", slug: "blog-roadtrip" },
+    { url: "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1200&q=80&auto=format&fit=crop", slug: "blog-luxury" },
+    { url: "https://images.unsplash.com/photo-1542362567-b07e54358753?w=1200&q=80&auto=format&fit=crop", slug: "blog-suv" },
+    { url: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1200&q=80&auto=format&fit=crop", slug: "blog-sports" },
+    { url: "https://images.unsplash.com/photo-1485291571150-772bcfc10da5?w=1200&q=80&auto=format&fit=crop", slug: "blog-airport" },
+  ];
+  const blogImageFiles = [];
+  for (const b of blogImages) {
+    try { blogImageFiles.push(await downloadImage(b.url, b.slug)); }
+    catch { blogImageFiles.push(b.url); }
+  }
+
+  const blogDefs = [
+    {
+      title: "5 lưu ý quan trọng khi thuê xe tự lái lần đầu",
+      excerpt: "Bạn lần đầu thuê xe tự lái? Đây là những điều cần biết để chuyến đi an toàn và thuận lợi.",
+      content: "Khi thuê xe tự lái lần đầu, bạn nên kiểm tra kỹ giấy tờ xe, bảo hiểm và tình trạng xe trước khi nhận. Đừng quên chụp ảnh các góc xe để tránh tranh chấp khi trả xe. Hãy đọc kỹ hợp đồng về quy định nhiên liệu, số km tối đa và các phụ phí. Mua bảo hiểm thân vỏ là khuyến cáo bắt buộc nếu bạn chưa quen lái xe lạ. Cuối cùng, luôn tuân thủ luật giao thông và lái xe phòng thủ - đường xa thì an toàn là trên hết.",
+      author: "Đào Việt Đức", category: "Hướng dẫn",
+      tags: ["thuê xe", "tự lái", "kinh nghiệm", "an toàn"],
+      image: blogImageFiles[0], isPublished: true,
+    },
+    {
+      title: "Top 10 cung đường roadtrip đẹp nhất Việt Nam",
+      excerpt: "Khám phá những cung đường tuyệt vời nhất Việt Nam với xe của bạn - từ Bắc vào Nam.",
+      content: "Việt Nam có nhiều cung đường roadtrip đẹp mê hồn: Đèo Hải Vân, Quốc lộ 1A Phan Thiết - Mũi Né, đường ven biển Quy Nhơn - Tuy Hòa, Tà Xùa - Bắc Yên... Mỗi cung đường có vẻ đẹp riêng. Đặc biệt cung Hà Giang với 4 đèo: Mã Pí Lèng, Bắc Sum, Cán Tỷ, Thẩm Mã là thử thách thú vị cho dân lái xe. Chuẩn bị xe tốt, lốp dự phòng và bản đồ offline trước chuyến đi nhé!",
+      author: "Nguyễn Thị Hoa", category: "Du lịch",
+      tags: ["roadtrip", "du lịch", "việt nam"],
+      image: blogImageFiles[1], isPublished: true,
+    },
+    {
+      title: "Xe hạng sang nào đáng thuê cho dịp đặc biệt?",
+      excerpt: "Mercedes S-Class, BMW 7-Series hay Audi A8? Cùng so sánh để chọn đúng xe cho sự kiện của bạn.",
+      content: "Cho các dịp đặc biệt như đám cưới, tiệc công ty hay đón đối tác VIP, việc chọn xe hạng sang phù hợp rất quan trọng. Mercedes S-Class nổi bật với sự uy nghi và êm ái. BMW 7-Series mang đến trải nghiệm thể thao hơn. Audi A8 cân bằng giữa công nghệ và sang trọng. Tại Carshops, cả 3 dòng đều có sẵn với giá thuê từ 8-12 triệu/ngày, bao gồm tài xế và xăng.",
+      author: "Lê Thanh Hương", category: "Xe hạng sang",
+      tags: ["luxury", "mercedes", "bmw", "audi"],
+      image: blogImageFiles[2], isPublished: true,
+    },
+    {
+      title: "SUV hay sedan: Lựa chọn nào cho gia đình?",
+      excerpt: "Phân tích ưu nhược điểm của SUV và sedan để bạn chọn xe phù hợp nhu cầu gia đình.",
+      content: "SUV phù hợp gia đình đông người, hay đi du lịch xa, đường xấu. Ưu điểm: rộng rãi, gầm cao, an toàn. Nhược điểm: tốn xăng hơn, khó đỗ trong phố. Sedan phù hợp gia đình 4-5 người, di chuyển nội đô là chính. Ưu điểm: tiết kiệm nhiên liệu, lái êm, dễ đỗ. Nhược điểm: không gian hành lý hạn chế. Với gia đình 3-4 thành viên, sedan như Camry hoặc Civic là lựa chọn cân bằng nhất.",
+      author: "Phạm Quang Huy", category: "Tư vấn",
+      tags: ["SUV", "sedan", "gia đình", "tư vấn"],
+      image: blogImageFiles[3], isPublished: true,
+    },
+    {
+      title: "Trải nghiệm thuê siêu xe Porsche 911 cuối tuần",
+      excerpt: "Tôi đã thuê Porsche 911 Carrera S cho chuyến đi cuối tuần lên Tam Đảo - đáng từng đồng!",
+      content: "Tiếng pô V6 boxer của Porsche 911 là điều khó quên. Sau 2 ngày trải nghiệm trên cung đường Hà Nội - Tam Đảo, tôi hiểu vì sao 911 được coi là biểu tượng xe thể thao. Cảm giác lái thuần khiết, vô lăng cực kỳ phản hồi, hộp số PDK chuyển số mượt. Tốn xăng nhưng đáng. Nội thất chật so với xe gia đình nhưng đủ cho 2 người. Giá thuê 8 triệu/ngày tại Carshops là hợp lý so với trải nghiệm.",
+      author: "Trần Minh Khôi", category: "Trải nghiệm",
+      tags: ["porsche", "911", "sports car", "review"],
+      image: blogImageFiles[4], isPublished: true,
+    },
+    {
+      title: "Mẹo tiết kiệm khi thuê xe đưa đón sân bay",
+      excerpt: "Đặt sớm, chọn giờ phù hợp và một vài mẹo nhỏ giúp bạn tiết kiệm 20-30% chi phí.",
+      content: "Đặt xe đưa đón sân bay từ 24h trước thường có giá tốt hơn 20% so với đặt cận giờ. Tránh khung giờ cao điểm 6-9h sáng và 16-19h chiều nếu có thể. Chọn xe sedan thay vì SUV nếu chỉ có 1-2 người và ít hành lý. Đăng ký thành viên Carshops để hưởng ưu đãi 10% cho 5 lần đặt đầu tiên. Cuối cùng, kiểm tra mã giảm giá WELCOME20 cho khách mới.",
+      author: "Đào Việt Đức", category: "Mẹo hay",
+      tags: ["sân bay", "tiết kiệm", "mẹo"],
+      image: blogImageFiles[5], isPublished: true,
+    },
+  ];
+  await BlogPost.insertMany(blogDefs);
+  ok(`✔ ${blogDefs.length} blog posts`);
+
   const totals = {
     users: await User.countDocuments(),
     categories: await Category.countDocuments(),
@@ -522,6 +748,11 @@ const main = async () => {
     vouchers: await Voucher.countDocuments(),
     bookings: await Booking.countDocuments(),
     transactions: await Transaction.countDocuments(),
+    blogPosts: await BlogPost.countDocuments(),
+    testimonials: await Testimonial.countDocuments(),
+    teamMembers: await TeamMember.countDocuments(),
+    services: await Service.countDocuments(),
+    siteSettings: await SiteSetting.countDocuments(),
   };
 
   console.log("\n────────────────────────────────────────");

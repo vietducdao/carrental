@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Search, X, SlidersHorizontal, ArrowUpDown, DollarSign, Settings2, Fuel, Tag, ArrowRight } from "lucide-react";
 import api, { BASE_URL } from "../../utils/api";
 import { useLanguage } from "../../context/LanguageContext";
@@ -9,19 +9,20 @@ const FUEL_TYPES = ["Petrol", "Diesel", "Electric", "Hybrid"];
 
 function Cars() {
   const { t } = useLanguage();
+  const [searchParams] = useSearchParams();
   const [cars, setCars] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalResults, setTotalResults] = useState(0);
 
-  // filters
-  const [search, setSearch] = useState("");
-  const [searchInput, setSearchInput] = useState("");
-  const [category, setCategory] = useState("");
-  const [transmission, setTransmission] = useState("");
-  const [fuelType, setFuelType] = useState("");
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
+  // filters — initialize from URL query string
+  const [search, setSearch] = useState(searchParams.get("search") || "");
+  const [searchInput, setSearchInput] = useState(searchParams.get("search") || "");
+  const [category, setCategory] = useState(searchParams.get("category") || "");
+  const [transmission, setTransmission] = useState(searchParams.get("transmission") || "");
+  const [fuelType, setFuelType] = useState(searchParams.get("fuelType") || "");
+  const [minPrice, setMinPrice] = useState(searchParams.get("minRate") || "");
+  const [maxPrice, setMaxPrice] = useState(searchParams.get("maxRate") || "");
   const [sort, setSort] = useState("newest");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -48,7 +49,9 @@ function Cars() {
   };
 
   useEffect(() => {
-    api.get("/api/categories").then((r) => setCategories(r.data.categories || [])).catch(() => {});
+    api.get("/api/categories")
+      .then((r) => setCategories(Array.isArray(r.data) ? r.data : r.data.categories || []))
+      .catch(() => {});
   }, []);
 
   useEffect(() => { fetchCars(); }, [page, category, transmission, fuelType, sort, search]);
@@ -94,6 +97,17 @@ function Cars() {
   }, [search, category, transmission, fuelType, minPrice, maxPrice, t]);
 
   const hasActiveFilters = activeChips.length > 0 || sort !== "newest";
+
+  // Build query string to carry pickup/return dates and locations to the car detail page
+  const carDetailQuery = (() => {
+    const p = new URLSearchParams();
+    ["pickDate", "returnDate", "pickLocation", "dropLocation"].forEach((k) => {
+      const v = searchParams.get(k);
+      if (v) p.set(k, v);
+    });
+    const s = p.toString();
+    return s ? `?${s}` : "";
+  })();
 
   return (
     <div className="font-sans bg-[#121212] text-white">
@@ -312,7 +326,7 @@ function Cars() {
                       </ul>
                       <div className="flex justify-between items-center gap-2">
                         <span className="text-[#f5b754] font-semibold text-lg whitespace-nowrap">${car.dailyRate}{t.cars.perDay}</span>
-                        <Link to={`/car/${car._id}`} className="inline-block flex-shrink-0">
+                        <Link to={`/car/${car._id}${carDetailQuery}`} className="inline-block flex-shrink-0">
                           <button
                             type="button"
                             className="bg-[#f5b754] !text-black font-bold px-5 py-2.5 rounded-full text-sm hover:bg-amber-400 hover:scale-105 active:scale-95 transition whitespace-nowrap inline-flex items-center gap-1.5 shadow-md shadow-[#f5b754]/20"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ShoppingCart } from "lucide-react";
@@ -11,6 +11,7 @@ import { useLanguage } from "../../context/LanguageContext";
 function CarsDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { isAuthenticated } = useAuth();
   const { addToCart } = useCart();
   const { t } = useLanguage();
@@ -20,8 +21,11 @@ function CarsDetails() {
   const [loading, setLoading] = useState(true);
   const [openIndex, setOpenIndex] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [pickupDate, setPickupDate] = useState("");
-  const [returnDate, setReturnDate] = useState("");
+  const [pickupDate, setPickupDate] = useState(searchParams.get("pickDate") || "");
+  const [returnDate, setReturnDate] = useState(searchParams.get("returnDate") || "");
+  const [sameDayReturn, setSameDayReturn] = useState(false);
+  const prefillPickLocation = searchParams.get("pickLocation") || "";
+  const prefillDropLocation = searchParams.get("dropLocation") || "";
 
   useEffect(() => {
     api.get(`/api/cars/${id}`)
@@ -41,12 +45,15 @@ function CarsDetails() {
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    if (!pickupDate || !returnDate) return toast.error(t.carDetails.selectDatesError);
-    const pickup = new Date(pickupDate);
-    const ret = new Date(returnDate);
-    if (ret <= pickup) return toast.error(t.carDetails.returnAfterPickup);
-    const days = Math.ceil((ret - pickup) / (1000 * 60 * 60 * 24));
-    addToCart({ car, pickupDate, returnDate, days });
+    if (!pickupDate) return toast.error(t.carDetails.selectDatesError);
+    const effectiveReturn = sameDayReturn ? pickupDate : returnDate;
+    if (!effectiveReturn) return toast.error(t.carDetails.selectDatesError);
+    if (!sameDayReturn) {
+      const pickup = new Date(pickupDate);
+      const ret = new Date(returnDate);
+      if (ret <= pickup) return toast.error(t.carDetails.returnAfterPickup);
+    }
+    addToCart(car, pickupDate, effectiveReturn, prefillPickLocation, prefillDropLocation, sameDayReturn);
     setShowModal(false);
     toast.success(t.carDetails.addedToCart);
     navigate("/cart");
@@ -159,7 +166,7 @@ function CarsDetails() {
 
       {/* Date picker modal */}
       {showModal && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm px-4">
           <div className="bg-[#1a1a1a] border border-[#f5b754]/30 rounded-2xl shadow-2xl max-w-md w-full overflow-hidden">
             <div className="bg-[#f5b754] px-6 py-4 flex items-center justify-between">
               <h2 className="text-xl font-bold text-black">{t.carDetails.selectDates}</h2>
@@ -175,16 +182,39 @@ function CarsDetails() {
                 <input type="date" required value={pickupDate} min={today} onChange={(e) => setPickupDate(e.target.value)}
                   className="w-full px-4 py-3 bg-[#121212] text-white rounded-xl border border-gray-700 focus:outline-none focus:border-[#f5b754] transition" />
               </div>
-              <div>
-                <label className="block text-sm text-gray-400 mb-1.5">{t.carDetails.returnDate}</label>
-                <input type="date" required value={returnDate} min={pickupDate || today} onChange={(e) => setReturnDate(e.target.value)}
-                  className="w-full px-4 py-3 bg-[#121212] text-white rounded-xl border border-gray-700 focus:outline-none focus:border-[#f5b754] transition" />
-              </div>
-              {pickupDate && returnDate && new Date(returnDate) > new Date(pickupDate) && (
+
+              <label className="flex items-center gap-2.5 cursor-pointer select-none p-2.5 rounded-xl bg-[#252525] border border-gray-700 hover:border-[#f5b754]/50 transition">
+                <input
+                  type="checkbox"
+                  checked={sameDayReturn}
+                  onChange={(e) => setSameDayReturn(e.target.checked)}
+                  className="w-4 h-4 accent-[#f5b754] cursor-pointer"
+                />
+                <span className="text-sm text-white">{t.carDetails.sameDayReturn || "Trả trong ngày"}</span>
+                <span className="ml-auto text-xs text-[#f5b754] font-semibold">{t.carDetails.halfPrice || "1/2 giá"}</span>
+              </label>
+
+              {!sameDayReturn && (
+                <div>
+                  <label className="block text-sm text-gray-400 mb-1.5">{t.carDetails.returnDate}</label>
+                  <input type="date" required={!sameDayReturn} value={returnDate} min={pickupDate || today} onChange={(e) => setReturnDate(e.target.value)}
+                    className="w-full px-4 py-3 bg-[#121212] text-white rounded-xl border border-gray-700 focus:outline-none focus:border-[#f5b754] transition" />
+                </div>
+              )}
+
+              {pickupDate && (sameDayReturn || (returnDate && new Date(returnDate) > new Date(pickupDate))) && (
                 <div className="bg-[#f5b754]/10 border border-[#f5b754]/20 rounded-xl p-3 text-sm text-gray-300">
-                  {t.carDetails.total} <span className="text-[#f5b754] font-bold">
-                    {Math.ceil((new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24))} {t.carDetails.days} × ${car.dailyRate} = ${(Math.ceil((new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24)) * car.dailyRate).toFixed(2)}
-                  </span>
+                  {(() => {
+                    const days = sameDayReturn ? 0.5 : Math.ceil((new Date(returnDate) - new Date(pickupDate)) / (1000 * 60 * 60 * 24));
+                    const total = days * car.dailyRate;
+                    return (
+                      <>
+                        {t.carDetails.total} <span className="text-[#f5b754] font-bold">
+                          {days} {t.carDetails.days} × ${car.dailyRate} = ${total.toFixed(2)}
+                        </span>
+                      </>
+                    );
+                  })()}
                 </div>
               )}
               <button type="submit" className="w-full py-3 text-lg font-bold rounded-xl bg-[#f5b754] text-black hover:bg-[#e5a944] transition flex items-center justify-center gap-2">

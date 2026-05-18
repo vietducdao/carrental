@@ -10,7 +10,7 @@ const Login = () => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [showPwd, setShowPwd] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
   const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,7 +23,11 @@ const Login = () => {
     setLoading(true);
     try {
       const user = await login(form.email, form.password);
-      if (user.role === "admin") return navigate("/admin", { replace: true });
+      if (user.role === "admin") {
+        logout();
+        toast.error(t.auth.adminMustUseAdminLogin || "Tài khoản admin phải đăng nhập qua trang Admin Portal");
+        return;
+      }
       navigate(from, { replace: true });
     } catch (err) {
       toast.error(err.response?.data?.message || "Đăng nhập thất bại");

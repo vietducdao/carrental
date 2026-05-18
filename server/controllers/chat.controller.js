@@ -1,5 +1,8 @@
 import ChatMessage from "../models/ChatMessage.js";
 import Car from "../models/Car.js";
+import Service from "../models/Service.js";
+import SiteSetting from "../models/SiteSetting.js";
+import User from "../models/User.js";
 import { getChatResponse } from "../services/claude.service.js";
 
 export const sendMessage = async (req, res) => {
@@ -16,30 +19,75 @@ export const sendMessage = async (req, res) => {
       content: message.trim(),
     });
 
-    // Build history (last 10 messages)
+    // Build history (last 6 messages — keep token usage low for free tier)
     const history = await ChatMessage.find({ sessionId })
       .sort({ createdAt: -1 })
-      .limit(10)
+      .limit(6)
       .lean();
     const formattedHistory = history
       .reverse()
       .map((m) => ({ role: m.role, content: m.content }));
 
-    // Get available cars for context
-    const cars = await Car.find({ status: "available", isActive: true })
-      .select("make model year category dailyRate seats")
-      .limit(8)
-      .lean();
+    // Build rich context: cars + services + site settings + user info (parallel)
+    const [cars, services, settings, user] = await Promise.all([
+      Car.find({ status: "available", isActive: true })
+        .select("_id make model year category dailyRate seats transmission fuelType")
+        .limit(8)
+        .lean(),
+      Service.find({ isActive: true })
+        .select("title description icon")
+        .sort({ order: 1 })
+        .limit(8)
+        .lean(),
+      SiteSetting.findOne().lean(),
+      req.user?.id ? User.findById(req.user.id).select("name email phone").lean() : null,
+    ]);
 
-    const reply = await getChatResponse(formattedHistory, cars);
+    const reply = await getChatResponse(formattedHistory, { cars, services, settings, user });
 
     // Save assistant reply
     await ChatMessage.create({ sessionId, role: "assistant", content: reply });
 
     res.json({ reply, sessionId });
   } catch (err) {
-    console.error("Chat error:", err);
-    res.status(500).json({ message: "Không thể xử lý tin nhắn lúc này, vui lòng thử lại." });
+    console.error("Chat error:", err.message);
+    if (err.stack) console.error(err.stack);
+    // Surface API config / auth errors so admin can diagnose quickly
+    const isConfigError = /ANTHROPIC_API_KEY/i.test(err.message);
+    const isAuthError = err.status === 401 || /authentication|invalid api key/i.test(err.message);
+    const isRateLimit = err.status === 429;
+    let message = "Không thể xử lý tin nhắn lúc này, vui lòng thử lại.";
+    if (isConfigError) message = "Chatbot chưa được cấu hình API key. Vui lòng liên hệ admin.";
+    else if (isAuthError) message = "API key không hợp lệ. Vui lòng kiểm tra cấu hình.";
+    else if (isRateLimit) message = "Quá nhiều yêu cầu, vui lòng thử lại sau ít phút.";
+    res.status(500).json({ message });
+  }
+};
+
+// Public: load own session history (no auth required, scoped by sessionId)
+export const getSessionMessages = async (req, res) => {
+  try {
+    const { sessionId } = req.params;
+    if (!sessionId) return res.status(400).json({ message: "Thiếu sessionId" });
+    const messages = await ChatMessage.find({ sessionId })
+      .sort({ createdAt: 1 })
+      .select("role content createdAt")
+      .lean();
+    res.json({ messages });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Public: clear own session
+export const clearSession = async (req, res) => {
+  try {
+    const { sessionId } = req.params;
+    if (!sessionId) return res.status(400).json({ message: "Thiếu sessionId" });
+    const result = await ChatMessage.deleteMany({ sessionId });
+    res.json({ message: "Đã xóa phiên chat", deletedCount: result.deletedCount });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };
 

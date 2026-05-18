@@ -10,18 +10,24 @@ import {
   DollarSign,
   BarChart3,
   MessageSquare,
+  FileText,
+  Star,
+  Briefcase,
+  Settings,
   LogOut,
   Menu,
   X
 } from "lucide-react";
 import { styles } from "../../assets/adminStyles";
 import { useLanguage } from "../../context/LanguageContext";
+import { useAuth } from "../../context/AuthContext";
 
 const AdminSidebar = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const { logout } = useAuth();
 
   const navLinks = [
     { path: "/admin", icon: PlusCircle, label: t.admin.sidebar.addCar },
@@ -33,11 +39,15 @@ const AdminSidebar = () => {
     { path: "/admin/financial", icon: DollarSign, label: t.admin.sidebar.financial },
     { path: "/admin/reports", icon: BarChart3, label: t.admin.sidebar.reports },
     { path: "/admin/chat", icon: MessageSquare, label: t.admin.sidebar.chat },
+    { path: "/admin/blog", icon: FileText, label: t.admin.sidebar.blog || "Blog" },
+    { path: "/admin/testimonials", icon: Star, label: t.admin.sidebar.testimonials || "Đánh giá" },
+    { path: "/admin/team", icon: Users, label: t.admin.sidebar.team || "Đội ngũ" },
+    { path: "/admin/services", icon: Briefcase, label: t.admin.sidebar.services || "Dịch vụ" },
+    { path: "/admin/settings", icon: Settings, label: t.admin.sidebar.settings || "Thiết lập" },
   ];
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    logout();
     navigate("/admin/login", { replace: true });
   };
 
