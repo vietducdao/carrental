@@ -1,0 +1,14 @@
+%% Luồng duyệt & tìm kiếm xe
+flowchart TD
+  Start([Bắt đầu]) --> Open[Mở /cars]
+  Open --> Get[GET /api/cars<br/>?page&search&category&transmission&priceMin&priceMax]
+  Get --> Build[Backend build filter Mongo]
+  Build --> Resp[Trả về cars, total, page, totalPages]
+  Resp --> Show[Hiển thị danh sách CarCard]
+
+  Show --> Choose{Hành động?}
+  Choose -- Lọc mới --> NewQuery[Cập nhật query params] --> Get
+  Choose -- Đổi trang --> PageNav[GET /api/cars?page=N] --> Show
+  Choose -- Chọn xe --> Detail[GET /api/cars/:id]
+  Detail --> ShowDetail[Hiển thị chi tiết + nút Đặt xe]
+  ShowDetail --> End([Kết thúc])

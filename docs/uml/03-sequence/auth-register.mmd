@@ -1,0 +1,29 @@
+%% Sequence — Đăng ký tài khoản
+sequenceDiagram
+  actor Guest
+  participant UI as Register.jsx
+  participant AX as axios
+  participant AC as AuthController
+  participant UM as User Model
+  participant BC as bcrypt
+  participant JWT as jsonwebtoken
+  participant DB as MongoDB
+
+  Guest->>UI: Nhập form (name,email,password,phone)
+  UI->>AX: POST /api/auth/register
+  AX->>AC: req.body
+  AC->>UM: User.findOne({email})
+  UM->>DB: query
+  DB-->>UM: null
+  UM-->>AC: null
+  AC->>UM: new User(...)
+  UM->>BC: pre-save bcrypt.hash(password, 10)
+  BC-->>UM: hashedPassword
+  UM->>DB: insertOne
+  DB-->>UM: user
+  AC->>JWT: sign({id,email,role}, JWT_SECRET, 7d)
+  JWT-->>AC: token
+  AC-->>AX: 201 {token, user.toSafeObject()}
+  AX-->>UI: response
+  UI->>UI: localStorage.setItem("token")
+  UI-->>Guest: Redirect / hiển thị tên user

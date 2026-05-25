@@ -1,0 +1,36 @@
+%% Sequence — Đăng nhập
+sequenceDiagram
+  actor User
+  participant UI as Login.jsx
+  participant AC as AuthController
+  participant UM as User Model
+  participant BC as bcrypt
+  participant JWT as jsonwebtoken
+  participant DB as MongoDB
+
+  User->>UI: Nhập email + password
+  UI->>AC: POST /api/auth/login
+  AC->>UM: User.findOne({email})
+  UM->>DB: query
+  DB-->>UM: user (hoặc null)
+
+  alt user == null
+    AC-->>UI: 401 "Email hoặc mật khẩu không đúng"
+  else
+    AC->>UM: user.comparePassword(password)
+    UM->>BC: bcrypt.compare()
+    BC-->>UM: true/false
+    alt sai mật khẩu
+      AC-->>UI: 401
+    else
+      alt !isActive
+        AC-->>UI: 403 "Tài khoản bị khóa"
+      else
+        AC->>JWT: sign({id,email,role})
+        JWT-->>AC: token (7d)
+        AC-->>UI: 200 {token, user}
+        UI->>UI: lưu token + setUser(ctx)
+        UI-->>User: Redirect (admin → /admin, user → /)
+      end
+    end
+  end

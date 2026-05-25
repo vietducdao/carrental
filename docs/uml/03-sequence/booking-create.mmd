@@ -1,0 +1,49 @@
+%% Sequence — Tạo đơn đặt xe
+sequenceDiagram
+  actor Customer
+  participant UI as CarsDetails / Cart
+  participant MW as auth.js (JWT)
+  participant BC as BookingController
+  participant CarM as Car Model
+  participant VM as Voucher Model
+  participant BM as Booking Model
+  participant DB as MongoDB
+
+  Customer->>UI: Chọn xe, ngày, voucher
+  UI->>MW: POST /api/bookings (Bearer JWT)
+  MW->>MW: verify(token) → req.user
+  MW->>BC: next()
+  BC->>CarM: Car.findById(carId)
+  CarM->>DB: query
+  DB-->>CarM: car
+  CarM-->>BC: car
+
+  alt car.status != "available"
+    BC-->>UI: 400 "Xe hiện không có sẵn"
+  else
+    alt !sameDayReturn && returnDate <= pickupDate
+      BC-->>UI: 400 "Ngày trả phải sau ngày nhận"
+    else
+      BC->>BC: days = sameDayReturn ? 0.5 : ceil((return-pickup)/24h)
+      BC->>BC: subtotal = days * car.dailyRate
+
+      opt voucherId provided
+        BC->>VM: Voucher.findById(voucherId)
+        VM->>DB: query
+        DB-->>VM: voucher
+        BC->>VM: voucher.isValid(subtotal)
+        VM-->>BC: {valid: true}
+        BC->>VM: voucher.computeDiscount(subtotal)
+        VM-->>BC: discount
+        BC->>VM: voucher.usedCount++ & save
+        VM->>DB: save
+      end
+
+      BC->>BM: Booking.create({user, car, carSnapshot, customer, email, phone, pickup, return, amount, discount, voucher, status:pending, paymentStatus:unpaid})
+      BM->>DB: insertOne
+      DB-->>BM: booking
+      BM-->>BC: booking
+      BC-->>UI: 201 {booking}
+      UI->>UI: navigate(/payment/{bookingId})
+    end
+  end

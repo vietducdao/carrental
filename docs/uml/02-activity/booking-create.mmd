@@ -1,0 +1,35 @@
+%% Luồng tạo đơn đặt xe (gồm tính giá + voucher)
+flowchart TD
+  Start([Bắt đầu]) --> Choose[Chọn xe + chi tiết]
+  Choose --> Login{Đã đăng nhập?}
+  Login -- Không --> Auth[Chuyển Login/Register] --> Choose
+  Login -- Có --> Date[Nhập pickupDate, returnDate, sameDayReturn]
+  Date --> Loc[Nhập pickupLocation, dropoffLocation]
+  Loc --> Info[Nhập customer, email, phone, address, notes]
+  Info --> VCheck{Có voucher?}
+  VCheck -- Có --> VCode[Nhập voucherCode]
+  VCheck -- Không --> Submit
+  VCode --> Submit[Submit form]
+
+  Submit --> Post[POST /api/bookings JWT]
+  Post --> CarFind[Car.findById carId]
+  CarFind --> CarOk{available?}
+  CarOk -- Không --> Err1[400/404 lỗi] --> End1([Kết thúc])
+  CarOk -- Có --> DateOk{returnDate ><br/>pickupDate?}
+  DateOk -- Không --> Err2[400 'Ngày trả phải sau ngày nhận'] --> End2([Kết thúc])
+  DateOk -- Có hoặc sameDay --> Days[Tính days]
+  Days --> Sub[subtotal = days * dailyRate]
+
+  Sub --> Vok{Có voucherId?}
+  Vok -- Có --> VFind[Voucher.findById]
+  VFind --> Vvalid[voucher.isValid subtotal]
+  Vvalid --> VR{valid?}
+  VR -- Có --> Disc[discount = computeDiscount<br/>voucher.usedCount++]
+  VR -- Không --> Skip[discount = 0]
+  Vok -- Không --> Skip
+  Disc --> Amt[amount = max 0, subtotal - discount]
+  Skip --> Amt
+  Amt --> Create[Booking.create<br/>status=pending, paymentStatus=unpaid]
+  Create --> Resp[201 booking]
+  Resp --> Nav[Chuyển /payment/:id]
+  Nav --> End([Kết thúc])

@@ -1,0 +1,30 @@
+%% Sequence — Admin cập nhật trạng thái booking
+sequenceDiagram
+  actor Admin
+  participant UI as BookingPage
+  participant MW as auth + requireAdmin
+  participant BC as BookingController
+  participant BM as Booking Model
+  participant CarM as Car Model
+  participant DB as MongoDB
+
+  Admin->>UI: Chọn đơn → "Bắt đầu thuê"
+  UI->>MW: PUT /api/bookings/:id {status:"active"}
+  MW->>BC: authorized
+  BC->>BM: Booking.findByIdAndUpdate(id, {status:"active"})
+  BM->>DB: update
+  DB-->>BM: booking
+  BM-->>BC: booking
+
+  opt status đổi sang "active"
+    BC->>CarM: Car.findByIdAndUpdate(booking.car, {status:"rented"})
+    CarM->>DB: update
+  end
+
+  opt status đổi sang "completed" / "cancelled"
+    BC->>CarM: Car.findByIdAndUpdate(booking.car, {status:"available"})
+    CarM->>DB: update
+  end
+
+  BC-->>UI: 200 {booking}
+  UI-->>Admin: Refetch bảng + toast

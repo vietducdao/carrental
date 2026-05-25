@@ -1,0 +1,23 @@
+%% State — Chat Session
+stateDiagram-v2
+  [*] --> open: Customer gửi message đầu tiên<br/>(sessionId mới)
+
+  open --> waiting_bot: POST /api/chat/send
+  waiting_bot --> open: AI/rule-based trả lời<br/>→ ChatMessage(assistant)
+
+  open --> escalated: Admin tham gia<br/>(role=admin)
+  escalated --> open: Admin xong / im lặng > N phút
+
+  open --> archived: Không hoạt động > 24h
+  escalated --> archived: Không hoạt động > 24h
+
+  archived --> open: Customer/Admin gửi tiếp
+  archived --> closed: Admin xóa session<br/>(DELETE /chat/sessions/:id)
+
+  closed --> [*]
+
+  note right of waiting_bot
+    Provider chọn theo env:
+    GEMINI_API_KEY > ANTHROPIC_API_KEY
+    → fallback rule-based
+  end note

@@ -1,0 +1,25 @@
+%% Admin quản lý đơn đặt xe
+flowchart TD
+  Start([Bắt đầu]) --> Open[/admin/bookings - BookingPage/]
+  Open --> Get[GET /api/bookings<br/>?page&search&status&paymentStatus&from&to]
+  Get --> Show[Bảng + filter ngày + trạng thái]
+
+  Show --> Pick{Hành động}
+  Pick -- Xem chi tiết --> A[GET /api/bookings/:id]
+  Pick -- Cập nhật trạng thái --> Sw{Hành động}
+  Sw -- Xác nhận --> B1[PUT status=confirmed]
+  Sw -- Bắt đầu thuê --> B2[PUT status=active<br/>Car.status=rented]
+  Sw -- Hoàn tất --> B3[PUT status=completed<br/>Car.status=available]
+  Sw -- Hủy --> B4[PUT status=cancelled]
+
+  Pick -- Cập nhật thanh toán --> C[paymentStatus<br/>unpaid/paid/refunded]
+  Pick -- Sửa note/phone/address --> D[PUT /api/bookings/:id]
+
+  A --> Done
+  B1 --> Done
+  B2 --> Done
+  B3 --> Done
+  B4 --> Done
+  C --> Done
+  D --> Done[Refetch + toast]
+  Done --> End([Kết thúc])

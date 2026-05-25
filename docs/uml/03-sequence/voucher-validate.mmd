@@ -1,0 +1,29 @@
+%% Sequence — Validate voucher
+sequenceDiagram
+  actor Customer
+  participant UI as Cart/Booking UI
+  participant VC as VoucherCtrl
+  participant VM as Voucher Model
+  participant DB as MongoDB
+
+  Customer->>UI: Nhập code + orderValue
+  UI->>VC: POST /api/vouchers/validate {code, orderValue}
+  VC->>VM: Voucher.findOne({code: code.toUpperCase()})
+  VM->>DB: query
+  DB-->>VM: voucher
+  VM-->>VC: voucher
+
+  alt voucher == null
+    VC-->>UI: 404 "Mã không tồn tại"
+  else
+    VC->>VM: voucher.isValid(orderValue)
+    VM-->>VC: {valid: bool, reason?}
+    alt !valid
+      VC-->>UI: 400 {reason}
+    else
+      VC->>VM: voucher.computeDiscount(orderValue)
+      VM-->>VC: discount
+      VC-->>UI: 200 {valid:true, discount, voucherId}
+      UI->>UI: Hiển thị giảm giá + cập nhật tổng
+    end
+  end

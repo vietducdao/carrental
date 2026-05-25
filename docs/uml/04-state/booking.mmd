@@ -1,0 +1,21 @@
+%% State — Booking
+stateDiagram-v2
+  [*] --> pending: createBooking()
+
+  pending --> confirmed: paymentStatus=paid<br/>hoặc Admin xác nhận
+  pending --> cancelled: Customer hủy /<br/>hết hạn thanh toán
+
+  confirmed --> active: Đến ngày pickup<br/>(Admin giao xe)
+  confirmed --> cancelled: Admin/Customer hủy
+
+  active --> completed: Trả xe đúng hạn /<br/>Admin đóng đơn
+  active --> cancelled: Sự cố / Hoàn tiền
+
+  completed --> [*]
+  cancelled --> [*]
+
+  state confirmed {
+    [*] --> unpaid
+    unpaid --> paid: Transaction success
+    paid --> refunded: Hoàn tiền
+  }

@@ -1,0 +1,18 @@
+%% Luồng thanh toán đơn (mock)
+flowchart TD
+  Start([Bắt đầu]) --> Open[Vào /payment/:bookingId]
+  Open --> Sum[Hiển thị tóm tắt đơn + tổng tiền]
+  Sum --> Pick[Chọn phương thức:<br/>cash / card / mock]
+  Pick --> Click[Bấm 'Thanh toán']
+  Click --> Post[POST /api/transactions/mock-payment<br/>bookingId, amount, method]
+  Post --> Find[Booking.findById]
+  Find --> Ok{Tồn tại?}
+  Ok -- Không --> E1[404 'Không tìm thấy đơn'] --> End1([Kết thúc])
+  Ok -- Có --> Ref[gatewayRef = 'MOCK-' + Date.now]
+  Ref --> Tx[Transaction.create<br/>status=success, gatewayRef, amount, method, user]
+  Tx --> Upd[Booking:<br/>paymentStatus=paid<br/>paymentMethod=method<br/>status=confirmed<br/>transactionId]
+  Upd --> Resp[Response transaction + booking]
+  Resp --> Toast[Hiển thị 'Thanh toán thành công']
+  Toast --> Mail[Gửi email xác nhận<br/>nếu cấu hình]
+  Mail --> Nav[Chuyển /booking-history]
+  Nav --> End([Kết thúc])

@@ -1,0 +1,19 @@
+%% Luồng hủy đơn đặt xe
+flowchart TD
+  Start([Bắt đầu]) --> Open[Mở BookingHistory / Admin Booking]
+  Open --> Pick[Chọn đơn cần hủy]
+  Pick --> Click[Bấm 'Hủy đơn']
+  Click --> Confirm[Xác nhận trên modal]
+  Confirm --> Del[DELETE /api/bookings/:id JWT]
+  Del --> Find{Booking tồn tại?}
+  Find -- Không --> E1[404 'Không tìm thấy đơn'] --> End1([Kết thúc])
+  Find -- Có --> Perm{Có quyền hủy?}
+  Perm -- Không --> E2[403 'Không có quyền'] --> End2([Kết thúc])
+  Perm -- Có --> Upd[Booking.status = 'cancelled']
+  Upd --> Paid{Đã thanh toán?}
+  Paid -- Có --> Refund[Transaction.status = 'refunded'<br/>Booking.paymentStatus = 'refunded'<br/>gọi gateway refund tùy chọn]
+  Paid -- Không --> Car
+  Refund --> Car[Car.status = 'available']
+  Car --> Resp[200 'Đã hủy đơn']
+  Resp --> Ui[UI cập nhật 'Đã hủy']
+  Ui --> End([Kết thúc])

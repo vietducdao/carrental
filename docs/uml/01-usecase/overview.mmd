@@ -1,0 +1,53 @@
+%% Sơ đồ Use Case tổng quan — Car Rental
+%% Mermaid không có native use case → dùng flowchart LR mô phỏng
+flowchart LR
+  Guest(((Khách<br/>Guest)))
+  Customer(((Khách hàng)))
+  Admin(((Admin)))
+  Pay(((Cổng<br/>thanh toán)))
+  AI(((AI Chatbot<br/>Claude/Gemini)))
+
+  subgraph SYS["Hệ thống Car Rental"]
+    UC_Home([Xem trang chủ])
+    UC_Browse([Duyệt & tìm xe])
+    UC_Detail([Xem chi tiết xe])
+    UC_Content([Blog / Service /<br/>Team / Testimonial])
+    UC_Register([Đăng ký])
+    UC_Login([Đăng nhập])
+    UC_Chat([Trò chuyện chatbot])
+    UC_Contact([Liên hệ])
+
+    UC_Profile([Quản lý hồ sơ])
+    UC_Pwd([Đổi mật khẩu])
+    UC_Cart([Giỏ hàng])
+    UC_Book([Đặt xe])
+    UC_Voucher([Áp dụng voucher])
+    UC_Pay([Thanh toán])
+    UC_History([Lịch sử đặt xe])
+    UC_Cancel([Hủy đơn])
+    UC_Testi([Gửi đánh giá])
+
+    UC_MCar([Quản lý xe])
+    UC_MCat([Quản lý danh mục])
+    UC_MUser([Quản lý user])
+    UC_MBook([Quản lý đơn])
+    UC_MVoucher([Quản lý voucher])
+    UC_MTx([Quản lý giao dịch])
+    UC_MBlog([Quản lý blog])
+    UC_MService([Quản lý dịch vụ])
+    UC_MTeam([Quản lý team])
+    UC_MTesti([Quản lý testimonial])
+    UC_MChat([Quản lý chat])
+    UC_MSite([Cấu hình website])
+    UC_Report([Báo cáo doanh thu])
+  end
+
+  Guest --> UC_Home & UC_Browse & UC_Detail & UC_Content & UC_Register & UC_Login & UC_Chat & UC_Contact
+  Customer --> UC_Profile & UC_Pwd & UC_Cart & UC_Book & UC_History & UC_Cancel & UC_Testi
+  Admin --> UC_MCar & UC_MCat & UC_MUser & UC_MBook & UC_MVoucher & UC_MTx
+  Admin --> UC_MBlog & UC_MService & UC_MTeam & UC_MTesti & UC_MChat & UC_MSite & UC_Report
+
+  UC_Book -. include .-> UC_Voucher
+  UC_Book -. include .-> UC_Pay
+  UC_Pay --> Pay
+  UC_Chat --> AI

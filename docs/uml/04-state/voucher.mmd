@@ -1,0 +1,22 @@
+%% State — Voucher
+stateDiagram-v2
+  [*] --> scheduled: Admin tạo voucher<br/>validFrom > now
+
+  scheduled --> active: Đến validFrom<br/>(và isActive=true)
+
+  [*] --> active: Tạo voucher<br/>không có validFrom
+
+  active --> exhausted: usedCount >= usageLimit
+  active --> expired: now > validUntil
+  active --> disabled: Admin set isActive=false
+
+  disabled --> active: Admin set isActive=true<br/>(còn hạn, còn lượt)
+
+  exhausted --> [*]
+  expired --> [*]
+  disabled --> [*]
+
+  note right of active
+    isValid(orderValue) → {valid:true}
+    computeDiscount() → discount > 0
+  end note

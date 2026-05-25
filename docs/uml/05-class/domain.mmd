@@ -1,0 +1,171 @@
+%% Class — Domain Model (12 Mongoose schemas)
+classDiagram
+  direction LR
+
+  class User {
+    +ObjectId _id
+    +String name
+    +String email
+    -String password
+    +String phone
+    +Address address
+    +String role
+    +String avatar
+    +Boolean isActive
+    +Date createdAt
+    +Date updatedAt
+    +comparePassword(plain) Boolean
+    +toSafeObject() Object
+  }
+
+  class Address {
+    +String street
+    +String city
+    +String state
+    +String zipCode
+  }
+
+  class Car {
+    +ObjectId _id
+    +String make
+    +String model
+    +Number year
+    +String color
+    +String category
+    +Number seats
+    +String transmission
+    +String fuelType
+    +Number mileage
+    +Number dailyRate
+    +String description
+    +String image
+    +String status
+    +Boolean isActive
+  }
+
+  class Category {
+    +ObjectId _id
+    +String name
+    +String slug
+    +String description
+    +String icon
+    +Number order
+  }
+
+  class Booking {
+    +ObjectId _id
+    +Object carSnapshot
+    +String customer
+    +String email
+    +String phone
+    +Date pickupDate
+    +Date returnDate
+    +Boolean sameDayReturn
+    +String pickupLocation
+    +String dropoffLocation
+    +String status
+    +Number amount
+    +Number discount
+    +String paymentStatus
+    +String paymentMethod
+    +Address address
+    +String notes
+    +String carImage
+  }
+
+  class Voucher {
+    +ObjectId _id
+    +String code
+    +String discountType
+    +Number discountValue
+    +Number minOrderValue
+    +Number maxDiscount
+    +Number usageLimit
+    +Number usedCount
+    +Date validFrom
+    +Date validUntil
+    +Boolean isActive
+    +isValid(orderValue) Result
+    +computeDiscount(orderValue) Number
+  }
+
+  class Transaction {
+    +ObjectId _id
+    +Number amount
+    +String currency
+    +String method
+    +String status
+    +String gatewayRef
+    +String description
+  }
+
+  class ChatMessage {
+    +ObjectId _id
+    +String sessionId
+    +String role
+    +String content
+    +Date createdAt
+  }
+
+  class BlogPost {
+    +ObjectId _id
+    +String title
+    +String slug
+    +String content
+    +String excerpt
+    +String image
+    +Array tags
+    +ObjectId author
+    +Date publishedAt
+  }
+
+  class Service {
+    +ObjectId _id
+    +String title
+    +String description
+    +String icon
+    +Number order
+    +Boolean isActive
+  }
+
+  class TeamMember {
+    +ObjectId _id
+    +String name
+    +String role
+    +String photo
+    +Object social
+    +Number order
+  }
+
+  class Testimonial {
+    +ObjectId _id
+    +Number rating
+    +String comment
+    +Boolean approved
+  }
+
+  class SiteSetting {
+    +ObjectId _id
+    +String companyName
+    +String logo
+    +String hotline
+    +String email
+    +String address
+    +Object socialLinks
+    +Array banners
+  }
+
+  User "1" *-- "1" Address: address
+  Booking "1" *-- "1" Address: address
+  User "1" --> "0..*" Booking: tạo
+  User "1" --> "0..*" Transaction
+  User "1" --> "0..*" Testimonial: viết
+  User "1" --> "0..*" ChatMessage: gửi
+  User "1" --> "0..*" BlogPost: author
+
+  Car "1" --> "0..*" Booking: được đặt
+  Car "*" --> "1" Category: thuộc
+  Car "1" --> "0..*" Testimonial: được đánh giá
+
+  Booking "1" --> "0..1" Voucher: áp dụng
+  Booking "1" --> "0..1" Transaction: thanh toán

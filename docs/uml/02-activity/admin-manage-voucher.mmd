@@ -1,0 +1,22 @@
+%% Admin quản lý voucher
+flowchart TD
+  Start([Bắt đầu]) --> Open[/admin/vouchers - ManageVouchersPage/]
+  Open --> Get[GET /api/vouchers?page&active]
+  Get --> Show[Bảng voucher]
+
+  Show --> Pick{Hành động}
+  Pick -- Thêm --> A1[Nhập code, discountType,<br/>discountValue, minOrderValue,<br/>maxDiscount, usageLimit,<br/>validFrom, validUntil]
+  A1 --> A2[POST /api/vouchers]
+  A2 --> Dup{code tồn tại?}
+  Dup -- Có --> E1[409 'Mã đã tồn tại'] --> End1([Kết thúc])
+  Dup -- Không --> A3[Voucher.create]
+
+  Pick -- Sửa --> B[PUT /api/vouchers/:id]
+  Pick -- Bật/Tắt --> C[PATCH /api/vouchers/:id/active]
+  Pick -- Xóa --> D[DELETE /api/vouchers/:id]
+
+  A3 --> Done
+  B --> Done
+  C --> Done
+  D --> Done[Refetch + toast]
+  Done --> End([Kết thúc])

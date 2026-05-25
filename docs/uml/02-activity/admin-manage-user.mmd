@@ -1,0 +1,23 @@
+%% Admin quản lý user
+flowchart TD
+  Start([Bắt đầu]) --> Open[/admin/users - ManageUsersPage/]
+  Open --> Get[GET /api/users?page&search&role]
+  Get --> Show[Bảng users]
+
+  Show --> Pick{Hành động}
+  Pick -- Xem --> A[GET /api/users/:id]
+  Pick -- Sửa --> B1[PUT /api/users/:id]
+  B1 --> B2[Validate role ∈ customer/admin]
+  B2 --> B3[User.findByIdAndUpdate]
+
+  Pick -- Khóa/Mở --> C[PATCH /api/users/:id/active<br/>toggle isActive]
+
+  Pick -- Xóa --> D1{User có booking<br/>active?}
+  D1 -- Có --> D2[Cảnh báo / chặn xóa] --> Done
+  D1 -- Không --> D3[User.deleteOne]
+
+  A --> Done
+  B3 --> Done
+  C --> Done
+  D3 --> Done[Refetch + toast]
+  Done --> End([Kết thúc])

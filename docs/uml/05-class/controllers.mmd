@@ -1,0 +1,97 @@
+%% Class — Controllers, Middleware, Services
+classDiagram
+  direction LR
+
+  class AuthMiddleware {
+    +authenticate(req, res, next)
+    +verifyJWT(token) payload
+  }
+  class RequireAdmin {
+    +handler(req, res, next)
+  }
+  class UploadMiddleware {
+    +single(field)
+    +array(field, max)
+  }
+
+  class AuthController {
+    +register(req, res)
+    +login(req, res)
+    +getMe(req, res)
+    +changePassword(req, res)
+  }
+  class UserController {
+    +getUsers(req, res)
+    +getUserById(req, res)
+    +updateUser(req, res)
+    +toggleActive(req, res)
+    +deleteUser(req, res)
+  }
+  class CarController {
+    +getCars(req, res)
+    +getCarById(req, res)
+    +createCar(req, res)
+    +updateCar(req, res)
+    +updateStatus(req, res)
+    +deleteCar(req, res)
+  }
+  class CategoryController
+  class BookingController {
+    +getBookings(req, res)
+    +getMyBookings(req, res)
+    +getBookingById(req, res)
+    +createBooking(req, res)
+    +updateBooking(req, res)
+    +deleteBooking(req, res)
+  }
+  class VoucherController {
+    +getVouchers(req, res)
+    +createVoucher(req, res)
+    +updateVoucher(req, res)
+    +validateVoucher(req, res)
+    +deleteVoucher(req, res)
+  }
+  class TransactionController {
+    +getTransactions(req, res)
+    +updateTransactionStatus(req, res)
+    +mockPayment(req, res)
+  }
+  class ReportController {
+    +getRevenue(req, res)
+    +getBookingsSummary(req, res)
+    +getTopCars(req, res)
+    +getUsersSummary(req, res)
+  }
+  class ChatController {
+    +sendMessage(req, res)
+    +getSessionMessages(req, res)
+    +clearSession(req, res)
+    +getChatHistory(req, res)
+    +getAllSessions(req, res)
+    +deleteSession(req, res)
+  }
+  class BlogController
+  class ServiceController
+  class TeamController
+  class TestimonialController
+  class SiteSettingController
+
+  class ClaudeService {
+    -Boolean hasGemini
+    -Boolean hasAnthropic
+    -anthropicClient
+    +getChatResponse(history, ctx) String
+    -isOnTopic(message) Boolean
+    -offTopicReply(settings) String
+    -ruleBasedReply(message, ctx) String
+  }
+
+  AuthController ..> AuthMiddleware
+  BookingController ..> AuthMiddleware
+  TransactionController ..> AuthMiddleware
+  UserController ..> RequireAdmin
+  ReportController ..> RequireAdmin
+  CarController ..> UploadMiddleware
+  BlogController ..> UploadMiddleware
+
+  ChatController --> ClaudeService: getChatResponse()

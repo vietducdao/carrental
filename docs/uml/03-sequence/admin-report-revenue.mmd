@@ -1,0 +1,40 @@
+%% Sequence — Báo cáo doanh thu
+sequenceDiagram
+  actor Admin
+  participant UI as ReportsPage
+  participant MW as auth + requireAdmin
+  participant RC as ReportController
+  participant TM as Transaction Model
+  participant BM as Booking Model
+  participant CarM as Car Model
+  participant DB as MongoDB
+
+  Admin->>UI: Chọn from/to + period (day/week/month)
+
+  par 4 API song song
+    UI->>RC: GET /api/reports/revenue?from&to&period
+    RC->>TM: aggregate({status:success, createdAt in range, $group by period, $sum amount})
+    TM->>DB: aggregate
+    DB-->>TM: revenue[]
+    TM-->>RC: revenue[]
+    RC-->>UI: {revenue, totalRevenue, totalCount}
+  and
+    UI->>RC: GET /api/reports/bookings
+    RC->>BM: aggregate({$group by status, $count})
+    BM->>DB: aggregate
+    BM-->>RC: summary
+    RC-->>UI: {summary}
+  and
+    UI->>RC: GET /api/reports/top-cars
+    RC->>BM: aggregate(top 5 car by count)
+    BM->>CarM: populate
+    BM-->>RC: topCars
+    RC-->>UI: {topCars}
+  and
+    UI->>RC: GET /api/reports/users
+    RC->>RC: User.aggregate by createdAt
+    RC-->>UI: {newUsers[]}
+  end
+
+  UI->>UI: Vẽ Chart.js / Recharts
+  UI-->>Admin: Dashboard 4 widget

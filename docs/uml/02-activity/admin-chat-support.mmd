@@ -1,0 +1,18 @@
+%% Admin trả lời chat hỗ trợ
+flowchart TD
+  Start([Bắt đầu]) --> Open[/admin/chat - AdminChatPage/]
+  Open --> Get[GET /api/chat/sessions]
+  Get --> Show[Danh sách session:<br/>userInfo, messageCount,<br/>lastMessage, lastAt]
+  Show --> Pick[Chọn 1 session]
+  Pick --> Hist[GET /api/chat/history/:sessionId]
+  Hist --> Render[Hiển thị toàn bộ messages<br/>user / assistant / admin]
+
+  Render --> Act{Hành động}
+  Act -- Trả lời --> A1[POST /api/chat/admin-reply<br/>sessionId, content]
+  A1 --> A2[ChatMessage.create role=admin]
+  Act -- Xóa session --> B1[DELETE /api/chat/sessions/:sessionId]
+  B1 --> B2[ChatMessage.deleteMany]
+
+  A2 --> Done
+  B2 --> Done[Refetch sessions]
+  Done --> End([Kết thúc])

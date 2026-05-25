@@ -1,0 +1,25 @@
+%% Sequence — Admin upload ảnh xe
+sequenceDiagram
+  actor Admin
+  participant UI as AddCarPage
+  participant MW as auth + requireAdmin
+  participant Up as upload.js (multer)
+  participant CC as CarController
+  participant CM as Car Model
+  participant Files as uploads/
+  participant DB as MongoDB
+
+  Admin->>UI: Điền form + chọn file ảnh
+  UI->>MW: POST /api/cars (multipart/form-data, JWT)
+  MW->>MW: verify(token) + role==admin
+  MW->>Up: multer.single("image")
+  Up->>Files: ghi file (uniqueName)
+  Up->>CC: req.file.path, req.body
+  CC->>CC: validate (make, year, dailyRate...)
+  CC->>CM: Car.create({..., image:"/uploads/"+filename, status:"available", isActive:true})
+  CM->>DB: insert
+  DB-->>CM: car
+  CM-->>CC: car
+  CC-->>UI: 201 {car}
+  UI-->>Admin: Toast "Đã thêm xe"
+  UI->>UI: navigate /admin/cars

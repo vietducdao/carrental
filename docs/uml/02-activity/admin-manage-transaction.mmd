@@ -1,0 +1,16 @@
+%% Admin quản lý giao dịch & refund
+flowchart TD
+  Start([Bắt đầu]) --> Open[/admin/financial - FinancialPage/]
+  Open --> Get[GET /api/transactions<br/>?page&status&method&from&to]
+  Get --> Show[Bảng + summary<br/>success/pending/failed/refunded]
+  Show --> Pick[Chọn 1 giao dịch]
+  Pick --> Detail[GET /api/transactions/:id]
+  Detail --> Sw{Hành động}
+  Sw -- Đánh dấu success --> A[PUT status=success<br/>Booking.paymentStatus=paid]
+  Sw -- Đánh dấu failed --> B[PUT status=failed]
+  Sw -- Hoàn tiền --> C[PUT status=refunded<br/>Booking.paymentStatus=refunded<br/>gọi gateway refund tùy chọn]
+
+  A --> Done
+  B --> Done
+  C --> Done[Refetch + toast]
+  Done --> End([Kết thúc])

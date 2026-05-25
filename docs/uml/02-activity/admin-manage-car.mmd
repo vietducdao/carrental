@@ -1,0 +1,30 @@
+%% Admin quản lý xe (CRUD + upload ảnh)
+flowchart TD
+  Start([Bắt đầu]) --> Open[/admin/cars - ManageCarPage/]
+  Open --> Get[GET /api/cars?page&search&status]
+  Get --> Show[Bảng + filter + pagination]
+
+  Show --> Pick{Hành động}
+  Pick -- Thêm xe --> A1[Mở AddCarPage]
+  A1 --> A2[Nhập make, model, year, color,<br/>category, seats, transmission,<br/>fuelType, dailyRate, description, status]
+  A2 --> A3[Upload ảnh]
+  A3 --> A4[POST /api/cars - multer upload]
+  A4 --> A5[Lưu file /uploads<br/>Car.create image=path]
+  A5 --> A6[201]
+
+  Pick -- Sửa --> B1[Load chi tiết xe]
+  B1 --> B2[Chỉnh sửa form]
+  B2 --> B3[PUT /api/cars/:id]
+  B3 --> B4[Car.findByIdAndUpdate]
+
+  Pick -- Xóa --> C1[Modal xác nhận]
+  C1 --> C2[DELETE /api/cars/:id]
+  C2 --> C3[Soft delete isActive=false<br/>hoặc Car.deleteOne]
+
+  Pick -- Đổi trạng thái --> D1[PATCH /api/cars/:id/status<br/>available/rented/maintenance]
+
+  A6 --> Done
+  B4 --> Done
+  C3 --> Done
+  D1 --> Done[Refetch + toast]
+  Done --> End([Kết thúc])

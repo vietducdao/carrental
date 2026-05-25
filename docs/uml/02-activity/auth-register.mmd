@@ -1,0 +1,16 @@
+%% Luồng đăng ký tài khoản
+flowchart TD
+  Start([Bắt đầu]) --> Open[User mở trang Register]
+  Open --> Fill[Nhập name, email, password, phone]
+  Fill --> ChkField{Thiếu trường<br/>bắt buộc?}
+  ChkField -- Có --> Err1[Hiển thị 'Điền đầy đủ thông tin'] --> End1([Kết thúc])
+  ChkField -- Không --> Post[POST /api/auth/register]
+  Post --> ChkEmail{Email<br/>đã tồn tại?}
+  ChkEmail -- Có --> Err2[409 'Email đã sử dụng'] --> End2([Kết thúc])
+  ChkEmail -- Không --> Hash[Hash password<br/>bcrypt 10 rounds]
+  Hash --> Save[Lưu User mới<br/>role=customer]
+  Save --> JWT[Sinh JWT expiresIn=7d]
+  JWT --> Resp[Response 201 token + user]
+  Resp --> Store[Frontend lưu token<br/>vào localStorage]
+  Store --> Redirect[Chuyển về trang chủ / hồ sơ]
+  Redirect --> End([Kết thúc])

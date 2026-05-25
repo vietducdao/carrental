@@ -1,0 +1,55 @@
+%% Sequence — Chatbot AI (Gemini → Claude → Rule-based)
+sequenceDiagram
+  actor Customer
+  participant UI as Chatbot UI
+  participant CC as ChatController
+  participant CM as ChatMessage Model
+  participant Ctx as Car/Service/SiteSetting/User
+  participant CS as claude.service.js
+  participant G as Gemini API
+  participant A as Anthropic Claude
+  participant DB as MongoDB
+
+  Customer->>UI: Nhập câu hỏi
+  UI->>CC: POST /api/chat/send {message, sessionId}
+  CC->>CM: ChatMessage.create(role=user)
+  CM->>DB: insert
+
+  CC->>CM: findAll(sessionId, last 6)
+  CM->>DB: query
+  DB-->>CM: history
+
+  par parallel context fetch
+    CC->>Ctx: Car.find(available, isActive, limit 8)
+  and
+    CC->>Ctx: Service.find(isActive, limit 8)
+  and
+    CC->>Ctx: SiteSetting.findOne()
+  and
+    CC->>Ctx: User.findById() (nếu login)
+  end
+  Ctx->>DB: queries
+  DB-->>Ctx: data
+
+  CC->>CS: getChatResponse(history, {cars, services, settings, user})
+  CS->>CS: isOnTopic(lastMessage)
+
+  alt off-topic
+    CS-->>CC: offTopicReply()
+  else on-topic
+    alt hasGemini
+      CS->>G: POST generateContent (gemini-2.5-flash)
+      G-->>CS: reply
+    else hasAnthropic
+      CS->>A: messages.create(claude-sonnet)
+      A-->>CS: reply
+    else fallback
+      CS->>CS: ruleBasedReply(message, ctx)
+    end
+  end
+  CS-->>CC: reply
+
+  CC->>CM: ChatMessage.create(role=assistant, content=reply)
+  CM->>DB: insert
+  CC-->>UI: 200 {reply, sessionId}
+  UI-->>Customer: Hiển thị reply

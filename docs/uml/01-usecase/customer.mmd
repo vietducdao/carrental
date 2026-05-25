@@ -1,0 +1,44 @@
+%% Use Case — Khách hàng (Customer)
+flowchart LR
+  C(((Khách hàng)))
+  Pay(((Cổng<br/>thanh toán)))
+  AI(((AI Chatbot)))
+  Mail(((Email<br/>Service)))
+
+  subgraph SYS["Phân hệ Khách hàng"]
+    R([Đăng ký])
+    L([Đăng nhập])
+    P([Đổi mật khẩu])
+    Pro([Cập nhật hồ sơ])
+
+    Br([Duyệt xe])
+    Se([Tìm kiếm])
+    De([Chi tiết xe])
+    Ca([Thêm vào giỏ])
+
+    B([Tạo đơn đặt xe])
+    V([Áp dụng voucher])
+    Pm([Chọn phương thức])
+    T([Thanh toán])
+
+    H([Lịch sử đặt xe])
+    Hd([Chi tiết đơn])
+    Cn([Hủy đơn])
+
+    Te([Đánh giá xe])
+    Bl([Đọc blog/dịch vụ])
+    Ch([Trò chuyện chatbot])
+  end
+
+  C --> R & L & P & Pro
+  C --> Br & Se & De & Ca
+  C --> B & H & Hd & Cn
+  C --> Te & Bl & Ch
+
+  B -. include .-> V
+  B -. include .-> T
+  T -. include .-> Pm
+  T --> Pay
+  R -. extend .-> Mail
+  T -. extend .-> Mail
+  Ch --> AI

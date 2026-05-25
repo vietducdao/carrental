@@ -1,0 +1,27 @@
+%% Luồng chatbot AI (Gemini / Claude / Rule-based fallback)
+flowchart TD
+  Start([Bắt đầu]) --> Open[Mở widget Chatbot]
+  Open --> Type[Nhập câu hỏi]
+  Type --> Post[POST /api/chat/send<br/>message, sessionId]
+  Post --> Chk{Thiếu message<br/>hoặc sessionId?}
+  Chk -- Có --> E1[400 'Thiếu nội dung'] --> End1([Kết thúc])
+  Chk -- Không --> SaveU[ChatMessage.create role=user]
+  SaveU --> Hist[Lấy 6 message gần nhất sessionId]
+  Hist --> Ctx[Tải song song:<br/>Car available + Service + SiteSetting + User info]
+  Ctx --> Call[getChatResponse history, ctx]
+
+  Call --> Topic{Đúng chủ đề<br/>car rental?}
+  Topic -- Không --> Off[Trả lời chuyển hướng off-topic]
+  Topic -- Có --> Prov{Provider}
+  Prov -- GEMINI_API_KEY --> G[Gọi Google Gemini API]
+  Prov -- ANTHROPIC_API_KEY --> A[Gọi Claude API]
+  Prov -- Không có --> Rb[Rule-based<br/>match keyword → reply]
+
+  Off --> Reply
+  G --> Reply[reply string]
+  A --> Reply
+  Rb --> Reply
+  Reply --> SaveB[ChatMessage.create role=assistant]
+  SaveB --> Resp[Response reply, sessionId]
+  Resp --> Show[Hiển thị reply trong widget]
+  Show --> End([Kết thúc])

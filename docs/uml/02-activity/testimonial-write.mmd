@@ -1,0 +1,15 @@
+%% Luồng gửi đánh giá (Testimonial)
+flowchart TD
+  Start([Bắt đầu]) --> Open[Mở trang xe / hồ sơ]
+  Open --> Click[Bấm 'Viết đánh giá']
+  Click --> Login{Đã đăng nhập?}
+  Login -- Không --> Auth[Yêu cầu đăng nhập] --> End1([Kết thúc])
+  Login -- Có --> Fill[Nhập rating 1-5 + comment]
+  Fill --> Submit[POST /api/testimonials JWT]
+  Submit --> Dup{Đã đánh giá<br/>xe này?}
+  Dup -- Có --> Upd[Cập nhật testimonial cũ]
+  Dup -- Không --> New[Testimonial.create]
+  Upd --> Resp[201]
+  New --> Resp
+  Resp --> Admin[Sau này:<br/>Admin duyệt/ẩn/xóa<br/>trong ManageTestimonialsPage]
+  Admin --> End([Kết thúc])

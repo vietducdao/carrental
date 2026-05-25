@@ -1,0 +1,19 @@
+%% Luồng đăng nhập
+flowchart TD
+  Start([Bắt đầu]) --> Open[Mở trang Login]
+  Open --> Fill[Nhập email + password]
+  Fill --> Post[POST /api/auth/login]
+  Post --> Find{User<br/>tồn tại?}
+  Find -- Không --> E1[401 'Email hoặc mật khẩu sai'] --> End1([Kết thúc])
+  Find -- Có --> Pwd{bcrypt.compare<br/>đúng?}
+  Pwd -- Sai --> E1
+  Pwd -- Đúng --> Active{isActive?}
+  Active -- Không --> E2[403 'Tài khoản bị khóa'] --> End2([Kết thúc])
+  Active -- Có --> JWT[Sinh JWT id, email, role]
+  JWT --> Resp[Response token + user]
+  Resp --> Store[Lưu token<br/>localStorage]
+  Store --> Role{role == admin?}
+  Role -- Có --> A[Chuyển /admin]
+  Role -- Không --> U[Chuyển /]
+  A --> End([Kết thúc])
+  U --> End

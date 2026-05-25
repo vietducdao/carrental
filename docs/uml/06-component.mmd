@@ -1,0 +1,97 @@
+%% Component — Kiến trúc module
+flowchart LR
+  subgraph FE["Frontend (React 19 + Vite + Tailwind)"]
+    Pages["Public Pages<br/>(Index, Cars, CarsDetails,<br/>Blog, Services, Teams,<br/>About, Contact, Promotions,<br/>Login, Register, Profile,<br/>Cart, PaymentPage, BookingHistory)"]
+    AdminUI["Admin Console<br/>(AdminLayout, Sidebar,<br/>ManageCar/Booking/Users/Vouchers/<br/>Financial/Reports/Blog/Services/<br/>Team/Testimonials/Categories/<br/>Chat/SiteSettings)"]
+    ChatUI[Chatbot Widget]
+    Common[Nav / Footer / UI components]
+    Guards[RequireAuth / RequireAdminAuth]
+    I18n[LanguageContext - i18n]
+    Axios[Axios Client - utils]
+  end
+
+  subgraph BE["Backend (Node.js + Express)"]
+    AuthMod[auth route + ctrl]
+    UserMod[user route + ctrl]
+    CarMod[car route + ctrl]
+    CatMod[category route + ctrl]
+    BookMod[booking route + ctrl]
+    VoucherMod[voucher route + ctrl]
+    TxMod[transaction route + ctrl]
+    RepMod[report route + ctrl]
+    ChatMod[chat route + ctrl]
+    BlogMod[blog route + ctrl]
+    SvcMod[service route + ctrl]
+    TeamMod[team route + ctrl]
+    TestiMod[testimonial route + ctrl]
+    SiteMod[siteSetting route + ctrl]
+    MW[auth.js JWT + requireAdmin.js]
+    UP[upload.js multer]
+    AIService[claude.service.js<br/>Gemini/Claude/Fallback]
+    DBConn[config/db.js<br/>mongoose connect]
+  end
+
+  DB[(MongoDB<br/>Mongoose Models)]
+  Claude((Anthropic Claude API))
+  Gemini((Google Gemini API))
+  PG((Payment Gateway - mock))
+  Files[(uploads/)]
+
+  Pages --> Axios
+  AdminUI --> Axios
+  AdminUI -.-> Guards
+  ChatUI --> Axios
+  Pages -.-> I18n
+  AdminUI -.-> I18n
+  Pages -.-> Common
+  AdminUI -.-> Common
+
+  Axios --> AuthMod
+  Axios --> UserMod
+  Axios --> CarMod
+  Axios --> CatMod
+  Axios --> BookMod
+  Axios --> VoucherMod
+  Axios --> TxMod
+  Axios --> RepMod
+  Axios --> ChatMod
+  Axios --> BlogMod
+  Axios --> SvcMod
+  Axios --> TeamMod
+  Axios --> TestiMod
+  Axios --> SiteMod
+
+  AuthMod --> MW
+  UserMod --> MW
+  BookMod --> MW
+  TxMod --> MW
+  VoucherMod --> MW
+  RepMod --> MW
+  ChatMod --> MW
+
+  CarMod --> UP
+  BlogMod --> UP
+  TeamMod --> UP
+
+  AuthMod --> DB
+  UserMod --> DB
+  CarMod --> DB
+  CatMod --> DB
+  BookMod --> DB
+  VoucherMod --> DB
+  TxMod --> DB
+  RepMod --> DB
+  ChatMod --> DB
+  BlogMod --> DB
+  SvcMod --> DB
+  TeamMod --> DB
+  TestiMod --> DB
+  SiteMod --> DB
+
+  DB -.-> DBConn
+
+  ChatMod --> AIService
+  AIService --> Gemini
+  AIService --> Claude
+  TxMod --> PG
+  UP --> Files

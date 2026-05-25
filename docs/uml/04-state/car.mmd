@@ -1,0 +1,21 @@
+%% State — Car
+stateDiagram-v2
+  [*] --> available: Admin tạo xe<br/>(default status=available)
+
+  available --> rented: Booking → active<br/>(xe đã giao)
+  available --> maintenance: Admin chuyển bảo trì
+  available --> inactive: Admin set isActive=false
+
+  rented --> available: Booking → completed<br/>(trả xe đúng hạn)
+  rented --> maintenance: Sự cố trong khi thuê
+
+  maintenance --> available: Hoàn tất bảo trì
+  maintenance --> inactive: Admin loại biên
+
+  inactive --> available: Admin kích hoạt lại
+  inactive --> [*]: Xóa khỏi hệ thống
+
+  note right of rented
+    Khi Booking → status=active
+    Car.status được cập nhật = rented
+  end note

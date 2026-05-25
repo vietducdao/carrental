@@ -1,0 +1,20 @@
+%% Luồng áp dụng mã giảm giá
+flowchart TD
+  Start([Bắt đầu]) --> Inp[Nhập mã voucher trên form Booking]
+  Inp --> Val[POST /api/vouchers/validate<br/>code, orderValue]
+  Val --> Find[Voucher.findOne code.upper]
+  Find --> Exist{Voucher tồn tại?}
+  Exist -- Không --> E0['Mã không tồn tại'] --> End0([Kết thúc])
+  Exist -- Có --> Check[voucher.isValid orderValue]
+  Check --> Sw{Kiểm tra}
+  Sw -- !isActive --> EA['Voucher không còn hiệu lực'] --> EndA([Kết thúc])
+  Sw -- usedCount >= usageLimit --> EB['Đã hết lượt sử dụng'] --> EndB([Kết thúc])
+  Sw -- now < validFrom --> EC['Chưa đến ngày hiệu lực'] --> EndC([Kết thúc])
+  Sw -- now > validUntil --> ED['Đã hết hạn'] --> EndD([Kết thúc])
+  Sw -- orderValue < minOrderValue --> EE['Đơn tối thiểu $X'] --> EndE([Kết thúc])
+  Sw -- valid --> Comp[discount = computeDiscount<br/>percent: orderValue*value/100<br/>fixed: min value, orderValue<br/>cap maxDiscount nếu có]
+  Comp --> Resp[Trả valid:true, discount, voucherId]
+  Resp --> UI[UI hiển thị tổng tiền mới]
+  UI --> Submit[Khi submit booking,<br/>gửi kèm voucherId]
+  Submit --> Save[Booking lưu voucher ref<br/>voucher.usedCount++]
+  Save --> End([Kết thúc])

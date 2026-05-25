@@ -1,0 +1,28 @@
+%% Admin quản lý nội dung (Blog / Service / Team / Testimonial / SiteSettings)
+flowchart TD
+  Start([Bắt đầu]) --> Open[Admin vào AdminSidebar]
+  Open --> Mod{Module}
+
+  Mod -- Blog --> B1[ManageBlogPage<br/>GET /api/blog]
+  B1 --> B2[CRUD bài viết:<br/>title, slug, content, image, tags]
+
+  Mod -- Service --> S1[ManageServicesPage<br/>GET /api/services]
+  S1 --> S2[CRUD title, description,<br/>icon, order, isActive]
+
+  Mod -- Team --> T1[ManageTeamPage<br/>GET /api/team]
+  T1 --> T2[CRUD name, role, photo, social]
+
+  Mod -- Testimonial --> Te1[ManageTestimonialsPage<br/>GET /api/testimonials]
+  Te1 --> Te2[Duyệt / Ẩn / Xóa]
+
+  Mod -- SiteSetting --> Si1[SiteSettingsPage<br/>GET /api/site-settings]
+  Si1 --> Si2[Sửa companyName, logo,<br/>hotline, email, address,<br/>socialLinks, banners]
+  Si2 --> Si3[PUT /api/site-settings]
+
+  B2 --> Submit
+  S2 --> Submit
+  T2 --> Submit
+  Te2 --> Submit
+  Si3 --> Submit[Submit → API tương ứng<br/>POST/PUT/DELETE]
+  Submit --> Done[Refetch + toast]
+  Done --> End([Kết thúc])

@@ -1,0 +1,41 @@
+%% Deployment — Car Rental
+flowchart TB
+  subgraph Client["Client Device"]
+    Browser["Browser<br/>(Chrome / Edge / Safari)<br/>+ localStorage(token)"]
+  end
+
+  Net{{Internet HTTPS}}
+
+  subgraph WebHost["Static Hosting<br/>Vercel / Netlify / Nginx"]
+    SPA["React SPA Build<br/>dist/ - Vite output"]
+  end
+
+  subgraph AppServer["Application Server<br/>Node.js 18+ / PM2 / Docker"]
+    API["Express API<br/>server.js :5000"]
+    Up[("uploads/<br/>static via /uploads")]
+    Env[".env<br/>MONGO_URI<br/>JWT_SECRET<br/>CLIENT_URL<br/>GEMINI_API_KEY<br/>ANTHROPIC_API_KEY"]
+  end
+
+  subgraph DBNode["Database Cluster"]
+    Mongo[("MongoDB<br/>Atlas / Self-hosted<br/>port 27017")]
+  end
+
+  subgraph AIProv["AI Providers"]
+    Gemini((Google Gemini API))
+    Claude((Anthropic Claude API))
+  end
+
+  PG((Payment Gateway<br/>mock / VNPay / Stripe))
+  Mail((Email Service<br/>SMTP / SendGrid<br/>tùy chọn))
+
+  Browser <--> Net
+  Net --> WebHost
+  Net --> API
+  SPA -.-> API
+  API --> Mongo
+  API --> Gemini
+  API --> Claude
+  API --> PG
+  API --> Mail
+  API --> Up
+  API -.-> Env

@@ -1,0 +1,23 @@
+%% State — Transaction
+stateDiagram-v2
+  [*] --> pending: Transaction.create()
+
+  pending --> success: Gateway OK /<br/>Admin xác nhận
+  pending --> failed: Gateway từ chối /<br/>timeout
+
+  success --> refunded: Admin hoàn tiền<br/>(PUT /transactions/:id)
+  failed --> pending: Customer retry
+
+  success --> [*]
+  failed --> [*]
+  refunded --> [*]
+
+  note right of success
+    Side effect:
+    Booking.paymentStatus = paid
+    Booking.status = confirmed
+  end note
+  note right of refunded
+    Side effect:
+    Booking.paymentStatus = refunded
+  end note

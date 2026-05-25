@@ -1,0 +1,30 @@
+%% Sequence — Mock payment
+sequenceDiagram
+  actor Customer
+  participant UI as PaymentPage
+  participant MW as auth.js
+  participant TC as TransactionCtrl
+  participant TM as Transaction Model
+  participant BM as Booking Model
+  participant DB as MongoDB
+
+  Customer->>UI: Chọn phương thức (cash/card/mock)
+  UI->>MW: POST /api/transactions/mock-payment {bookingId, amount, method}
+  MW->>TC: req.user.id
+  TC->>BM: Booking.findById(bookingId)
+  BM->>DB: query
+  DB-->>BM: booking
+  BM-->>TC: booking
+
+  alt booking == null
+    TC-->>UI: 404 "Không tìm thấy đơn"
+  else
+    TC->>TC: gatewayRef = "MOCK-" + Date.now()
+    TC->>TM: Transaction.create({booking, user, amount, method, status:success, gatewayRef, description})
+    TM->>DB: insert
+    DB-->>TM: transaction
+    TC->>BM: paymentStatus=paid, paymentMethod=method, status=confirmed, transactionId, save()
+    BM->>DB: update
+    TC-->>UI: 200 {transaction, booking, "Thanh toán thành công"}
+    UI-->>Customer: Toast + redirect /booking-history
+  end

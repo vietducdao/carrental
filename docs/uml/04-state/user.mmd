@@ -1,0 +1,20 @@
+%% State — User Account
+stateDiagram-v2
+  [*] --> active: register()<br/>(isActive=true, role=customer)
+
+  active --> locked: Admin set isActive=false<br/>(vd: vi phạm)
+  locked --> active: Admin mở khóa
+
+  active --> promoted: Admin gán role=admin
+  promoted --> active: Admin gỡ quyền admin
+
+  active --> deleted: Admin xóa<br/>(không còn booking active)
+  locked --> deleted: Admin xóa
+
+  deleted --> [*]
+
+  note right of locked
+    Login bị chặn:
+    res.status(403)
+    "Tài khoản đã bị khóa"
+  end note

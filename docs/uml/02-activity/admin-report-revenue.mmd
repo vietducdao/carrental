@@ -1,0 +1,26 @@
+%% Báo cáo doanh thu / booking / top xe / user
+flowchart TD
+  Start([Bắt đầu]) --> Open[/admin/reports - ReportsPage/]
+  Open --> Pick[Chọn from, to + period day/week/month]
+
+  Pick --> Fork{{Tải 4 API song song}}
+  Fork --> R1[GET /api/reports/revenue]
+  Fork --> R2[GET /api/reports/bookings]
+  Fork --> R3[GET /api/reports/top-cars]
+  Fork --> R4[GET /api/reports/users]
+
+  R1 --> A1[Transaction.aggregate<br/>match status=success<br/>group theo period<br/>sum amount]
+  A1 --> A2[revenue + totalRevenue + totalCount]
+
+  R2 --> B1[Đếm booking theo status] --> B2[Vẽ pie chart]
+
+  R3 --> C1[Aggregate Booking → top xe được đặt]
+
+  R4 --> D1[Đếm user mới theo period]
+
+  A2 --> Show
+  B2 --> Show
+  C1 --> Show
+  D1 --> Show[Hiển thị 4 widget song song]
+  Show --> Exp[Export CSV / PDF - tùy chọn]
+  Exp --> End([Kết thúc])

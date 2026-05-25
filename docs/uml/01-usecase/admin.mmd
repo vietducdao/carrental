@@ -1,0 +1,56 @@
+%% Use Case — Quản trị viên (Admin)
+flowchart LR
+  A(((Admin)))
+
+  subgraph Cars["Quản lý kho xe"]
+    CarAdd([Thêm xe + upload ảnh])
+    CarEdit([Sửa xe])
+    CarDel([Xóa / vô hiệu])
+    CarStatus([Đổi trạng thái xe])
+    CatCRUD([CRUD danh mục])
+  end
+
+  subgraph Users["Quản lý người dùng"]
+    UList([Danh sách user])
+    UEdit([Sửa user])
+    UBan([Khóa / mở])
+    URole([Cấp quyền admin])
+  end
+
+  subgraph Booking["Quản lý đặt xe & thanh toán"]
+    BList([Danh sách booking])
+    BDetail([Chi tiết booking])
+    BStatus([Cập nhật trạng thái])
+    BCancel([Hủy đơn])
+    TxList([Xem giao dịch])
+    TxUpd([Refund / cập nhật GD])
+  end
+
+  subgraph Mkt["Marketing"]
+    VAdd([Tạo voucher])
+    VEdit([Sửa / vô hiệu voucher])
+  end
+
+  subgraph Content["Nội dung"]
+    MBlog([Quản lý blog])
+    MService([Quản lý dịch vụ])
+    MTeam([Quản lý team])
+    MTesti([Quản lý testimonial])
+    MSite([Cấu hình website])
+  end
+
+  subgraph Sup["Hỗ trợ & Báo cáo"]
+    ChatList([Danh sách chat])
+    ChatReply([Trả lời chat])
+    ChatDel([Xóa session])
+    Rev([Báo cáo doanh thu])
+    RepB([Báo cáo booking])
+    RepC([Báo cáo top xe])
+  end
+
+  A --> CarAdd & CarEdit & CarDel & CarStatus & CatCRUD
+  A --> UList & UEdit & UBan & URole
+  A --> BList & BDetail & BStatus & BCancel & TxList & TxUpd
+  A --> VAdd & VEdit
+  A --> MBlog & MService & MTeam & MTesti & MSite
+  A --> ChatList & ChatReply & ChatDel & Rev & RepB & RepC

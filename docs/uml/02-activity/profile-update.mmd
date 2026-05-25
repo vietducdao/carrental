@@ -1,0 +1,28 @@
+%% Luồng cập nhật hồ sơ + đổi mật khẩu + avatar
+flowchart TD
+  Start([Bắt đầu]) --> Open[Mở trang Profile]
+  Open --> Me[GET /api/auth/me<br/>với Bearer JWT]
+  Me --> Form[Hiển thị form name, phone,<br/>address, avatar]
+
+  Form --> Fork{{Chọn hành động}}
+  Fork --> A1[Sửa thông tin cá nhân]
+  Fork --> B1[Đổi mật khẩu]
+  Fork --> C1[Upload avatar]
+
+  A1 --> A2[PUT /api/users/:id]
+  A2 --> A3[Lưu User]
+  A3 --> A4[Toast 'Cập nhật thành công']
+
+  B1 --> B2[Nhập currentPassword + newPassword]
+  B2 --> B3[POST /api/auth/change-password]
+  B3 --> ChkPwd{currentPassword<br/>đúng?}
+  ChkPwd -- Không --> BErr[400 'Mật khẩu hiện tại sai'] --> End1([Kết thúc])
+  ChkPwd -- Có --> B4[Hash + lưu newPassword]
+  B4 --> B5[Toast 'Đổi mật khẩu thành công']
+
+  C1 --> C2[multer lưu file vào /uploads]
+  C2 --> C3[Cập nhật user.avatar = path]
+
+  A4 --> End([Kết thúc])
+  B5 --> End
+  C3 --> End

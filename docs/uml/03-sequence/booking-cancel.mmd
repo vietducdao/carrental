@@ -1,0 +1,38 @@
+%% Sequence — Hủy đơn
+sequenceDiagram
+  actor A as Customer/Admin
+  participant UI as BookingHistory / BookingPage
+  participant MW as auth.js
+  participant BC as BookingController
+  participant BM as Booking Model
+  participant TM as Transaction Model
+  participant CarM as Car Model
+  participant DB as MongoDB
+
+  A->>UI: Bấm "Hủy đơn" + xác nhận
+  UI->>MW: DELETE /api/bookings/:id
+  MW->>BC: req.user
+  BC->>BM: Booking.findById(id)
+  BM->>DB: query
+  DB-->>BM: booking
+  BM-->>BC: booking
+
+  alt booking == null
+    BC-->>UI: 404 "Không tìm thấy đơn"
+  else !admin && booking.user != req.user.id
+    BC-->>UI: 403 "Không có quyền"
+  else
+    BC->>BM: Booking.update(status="cancelled")
+    BM->>DB: update
+
+    opt paymentStatus == "paid"
+      BC->>TM: Transaction.update(status="refunded")
+      BC->>BM: booking.paymentStatus = "refunded"
+    end
+
+    BC->>CarM: Car.update(status="available")
+    CarM->>DB: update
+
+    BC-->>UI: 200 "Đã hủy đơn đặt xe"
+    UI-->>A: Refetch list + toast
+  end
